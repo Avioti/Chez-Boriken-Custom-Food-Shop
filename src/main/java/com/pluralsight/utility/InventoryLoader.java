@@ -16,7 +16,7 @@ public abstract class InventoryLoader {
     final static String errorMessage = "Error loading inventory from CSV file.";
 
 
-    public List<Food> parseLines(String[] parts) {
+    public void parseLines(String[] parts) {
         int quantity = Integer.parseInt(parts[0]);
         String category = parts[1];
         String itemName = parts[2];
@@ -34,7 +34,6 @@ public abstract class InventoryLoader {
             items.add(side);
         }
 
-        return items;
     }
 
     public void loadFromCsv() {
