@@ -37,7 +37,7 @@ public abstract class InventoryLoader {
         return items;
     }
 
-    public List<Food> loadFromCsv() {
+    public void loadFromCsv() {
 
         try{
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -56,6 +56,5 @@ public abstract class InventoryLoader {
             System.out.println(errorMessage);
 
         }
-        return items;
     }
 }

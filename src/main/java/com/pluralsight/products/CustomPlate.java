@@ -49,22 +49,7 @@ public class CustomPlate implements Orderable {
         return "";
     }
 
-    public boolean assemblePlate(Inventory inv){
-        for(Food item:selectedMains){
-            if(inv.getItemByName(item.itemName).isEmpty() || !inv.getItemByName(item.itemName).get().isAvailable()){
-                return false;
-            }
-        }
-        for(Food item:selectedSides){
-            if(inv.getItemByName(item.itemName).isEmpty() || !inv.getItemByName(item.itemName).get().isAvailable()){
-                return false;
-            }
-        }
-        for(Food item:selectedDrinks){
-            if(inv.getItemByName(item.itemName).isEmpty() || !inv.getItemByName(item.itemName).get().isAvailable()){
-                return false;
-            }
-        }
+    public boolean assemblePlate(InventoryHandler inv){
         return true;
     }
 

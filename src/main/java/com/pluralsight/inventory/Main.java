@@ -1,13 +1,28 @@
 package com.pluralsight.inventory;
 
 public class Main extends Food {
-    String primaryMain;
 
-    public Main(double basePrice, String category, String itemName, int quantity, String primaryMain) {
-        super(basePrice, category, itemName, quantity);
-        this.primaryMain = primaryMain;
 
+    public Main(int quantity, String category, String itemName, String description, double basePrice) {
+        super(quantity, category, itemName, description, basePrice);
+    }
+    @Override
+    public double getBasePrice() {
+        return super.getBasePrice();
     }
 
+    @Override
+    public boolean isAvailable() {
+        return super.isAvailable();
+    }
 
+    @Override
+    public void reduceQuantity(int amount) {
+        super.reduceQuantity(amount);
+    }
+
+    @Override
+    public void increaseQuantity(int amount) {
+        super.increaseQuantity(amount);
+    }
 }

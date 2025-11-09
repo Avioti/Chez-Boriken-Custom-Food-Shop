@@ -1,21 +1,19 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.inventory.Inventory;
+import com.pluralsight.inventory.InventoryHandler;
 import com.pluralsight.order.Order;
 import com.pluralsight.products.Entree;
-import com.pluralsight.utility.InputHandler;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class WelcomeScreen {
     List<Entree> featuredEntrees;
-    Inventory inventory;
+    InventoryHandler inventoryHandler;
 
 
 
-    public WelcomeScreen(List<Entree> featuredEntrees, Inventory inventory) {
-        this.inventory = inventory;
+    public WelcomeScreen(List<Entree> featuredEntrees, InventoryHandler inventoryHandler) {
+        this.inventoryHandler = inventoryHandler;
         this.featuredEntrees = featuredEntrees;
     }
 

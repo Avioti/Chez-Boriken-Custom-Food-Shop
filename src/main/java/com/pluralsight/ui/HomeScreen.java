@@ -1,8 +1,5 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.inventory.Inventory;
-import com.pluralsight.utility.ReceiptManager;
-
 public class HomeScreen {
 
 

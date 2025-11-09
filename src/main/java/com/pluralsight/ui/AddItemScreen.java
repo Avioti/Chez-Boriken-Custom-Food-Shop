@@ -1,12 +1,12 @@
 package com.pluralsight.ui;
 
 import com.pluralsight.inventory.Drink;
-import com.pluralsight.inventory.Inventory;
+import com.pluralsight.inventory.InventoryHandler;
 import com.pluralsight.inventory.Main;
 import com.pluralsight.inventory.Side;
 
 public class AddItemScreen {
-    public AddItemScreen(Inventory inv) {
+    public AddItemScreen(InventoryHandler inv) {
 
     }
 

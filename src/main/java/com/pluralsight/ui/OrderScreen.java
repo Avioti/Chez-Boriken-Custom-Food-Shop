@@ -1,6 +1,5 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.inventory.Inventory;
 import com.pluralsight.order.Order;
 
 public class OrderScreen {
