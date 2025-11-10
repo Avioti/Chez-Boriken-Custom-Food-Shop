@@ -20,9 +20,10 @@ public class HomeScreen {
 
     public static void showEntrees(){
         System.out.println("Featured Entrees");
-
+        System.out.println();
         for (Entree entree : featuredEntrees) {
             final String menuFormat = "\t%s%d%s - %s: - Price: $%.2f\t%s";
+
             System.out.printf(menuFormat,ConsoleColors.BLUE_BOLD,entree.getId(),ConsoleColors.RED,entree.getDisplayName(), entree.getPrice(),ConsoleColors.RESET);
         }
     }
@@ -30,7 +31,7 @@ public class HomeScreen {
     public static void showMenuChoices(){
         System.out.println();
         System.out.println("\nMenu Options:");
-        final String menuFormat = "\t%s%d. %s%s%s%n";
+        final String menuFormat = "\n\t%s%d. %s%s%s%n";
 
         System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.customOrder,ConsoleColors.RED,MenuOptions.customOrderText, ConsoleColors.RESET);
         System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.orderEntree,ConsoleColors.RED,MenuOptions.orderEntreeText, ConsoleColors.RESET);
@@ -44,7 +45,7 @@ public class HomeScreen {
 
         switch(choice){
             case MenuOptions.customOrder:
-                comingSoon();
+                OrderScreen.show();
                 break;
             case MenuOptions.orderEntree:
                 comingSoon();
@@ -65,7 +66,7 @@ public class HomeScreen {
 
     }
 
-    private static void comingSoon(){
+    public static void comingSoon(){
         System.out.println(comingSoonText);
         InputHandler.waitForEnter();
     }

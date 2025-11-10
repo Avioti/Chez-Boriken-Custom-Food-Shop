@@ -1,6 +1,7 @@
 package com.pluralsight.utility;
 
 import com.pluralsight.constants.ConsoleColors;
+import com.pluralsight.constants.Size;
 import com.pluralsight.ui.HomeScreen;
 import com.pluralsight.ui.WelcomeScreen;
 
@@ -15,6 +16,17 @@ public class InputHandler {
     private static final String EXIT_TWO = "Boriken!";
     private static final int CLEAR_SCREEN_LINES = 60;
     public static Scanner scanner = new Scanner(System.in);
+
+    public static Size getSizeInput(String prompt) {
+        System.out.print(prompt);
+        int choice = getUserChoice();
+        return switch (choice) {
+            case 1 -> Size.SMALL;
+            case 2 -> Size.MEDIUM;
+            case 3 -> Size.LARGE;
+            default -> null;
+        };
+    }
 
     public static int getUserChoice() {
         try {

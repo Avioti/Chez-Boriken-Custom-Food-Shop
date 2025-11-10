@@ -8,16 +8,6 @@ import com.pluralsight.utility.InventoryLoader;
 public class InventoryHandler extends InventoryLoader {
 
 
-    public static void reduceStock(Food item, int quantity) {
-        int currentStock = item.getQuantity();
-        if (quantity > currentStock) {
-            System.out.println("Insufficient stock for " + item.getItemName());
-        } else {
-            item.setQuantity(currentStock - quantity);
-            System.out.println("Stock updated for " + item.getItemName() + ". New quantity: " + item.getQuantity());
-        }
-
-    }
 
     public static void reduceStockBulk(Entree food, int quantity) {
       Food main = food.getMain();

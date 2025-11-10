@@ -6,12 +6,14 @@ import com.pluralsight.inventory.Main;
 import com.pluralsight.inventory.Side;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class InventoryLoader {
-    protected final String filePath = "src/main/resources/inventory.csv";
+    protected static final String filePath = "src/main/resources/inventory.csv";
     protected static List<Food> items = new ArrayList<>();
     final static String errorMessage = "Error loading inventory from CSV file.";
 
@@ -55,5 +57,31 @@ public abstract class InventoryLoader {
             System.out.println(errorMessage);
 
         }
+    }
+
+    public static void reduceStock(Food item, int quantity) {
+        int currentStock = item.getQuantity();
+        if (quantity > currentStock) {
+            System.out.println("Insufficient stock for " + item.getItemName());
+        } else {
+            item.setQuantity(currentStock - quantity);
+            try{
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+                for (Food f : items) {
+                    String line = f.getQuantity() + "|" + f.getCategory() + "|" + f.getItemName() + "|" + f.getDescription() + "|" + f.getBasePrice();
+                    if (f instanceof Drink drink) {
+                        line += "|" + drink.getOunces();
+                    }
+                    writer.write(line);
+                    writer.newLine();
+                }
+                writer.close();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            System.out.println("Stock updated for " + item.getItemName() + ". New quantity: " + item.getQuantity());
+        }
+
     }
 }

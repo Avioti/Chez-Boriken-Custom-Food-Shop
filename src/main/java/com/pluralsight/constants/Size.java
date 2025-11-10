@@ -33,4 +33,14 @@ public enum Size {
         return priceMultiplier;
     }
 
+
+    public static Size fromString(String sizeStr) {
+        for (Size size : Size.values()) {
+            if (size.name().equalsIgnoreCase(sizeStr)) {
+                return size;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant for size: " + sizeStr);
+    }
+
 }
