@@ -1,4 +1,4 @@
-package com.pluralsight.utility;
+package com.pluralsight.constants;
 
 public enum Size {
     SMALL(2,1,1),
