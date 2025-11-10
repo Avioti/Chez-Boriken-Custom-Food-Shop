@@ -2,67 +2,58 @@ package com.pluralsight.products;
 
 import com.pluralsight.core.Orderable;
 import com.pluralsight.inventory.Food;
-import com.pluralsight.inventory.Inventory;
+import com.pluralsight.inventory.InventoryHandler;
 
 import java.util.HashMap;
 
 public class Entree implements Orderable {
-    String id,name,description;
-    HashMap<Food,Integer> recipeComponents;
+    String name,description;
+    int id;
+    Food main,side,drink;
     double basePrice;
 
-    public Entree(String id, String name, HashMap<Food,Integer> recipeComponents, double basePrice , String description) {
+    public Entree(int id, String name, Food main,Food side,Food drink, double basePrice , String description) {
         this.id = id;
         this.name = name;
-        this.recipeComponents = recipeComponents;
+        this.main = main;
+        this.side = side;
+        this.drink = drink;
         this.basePrice = basePrice;
         this.description = description;
     }
 
-    public double getBasePrice() {
-        return basePrice;
+    public int getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public Food getMain() {
+        return main;
     }
+
+    public Food getSide() {
+        return side;
+    }
+
+    public Food getDrink() {
+        return drink;
+    }
+
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getId() {
-        return id;
-    }
 
     @Override
     public double getPrice() {
-        return 0;
+        return main.getBasePrice() + side.getBasePrice() + drink.getBasePrice();
     }
 
     @Override
     public String getDisplayName() {
-        return "";
+        return name;
     }
 
-    public boolean assemble(Inventory inv){
-        for(Food item:recipeComponents.keySet()){
-            if(inv.getItemByName(item.itemName).isEmpty() || !inv.getItemByName(item.itemName).get().isAvailable()){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void release(Inventory inv){
-        for(Food item:recipeComponents.keySet()){
-            inv.reduceStock(item,recipeComponents.get(item));
-        }
-    }
 
     public String display(){
         return name;

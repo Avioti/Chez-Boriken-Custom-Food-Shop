@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class InventoryLoader {
     protected final String filePath = "src/main/resources/inventory.csv";
-    protected List<Food> items = new ArrayList<>();
+    protected static List<Food> items = new ArrayList<>();
     final static String errorMessage = "Error loading inventory from CSV file.";
 
 

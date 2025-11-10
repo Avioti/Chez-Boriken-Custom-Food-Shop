@@ -2,17 +2,31 @@ package com.pluralsight.ui;
 
 import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.MenuOptions;
+import com.pluralsight.products.EntreeBuilder;
+import com.pluralsight.utility.InputHandler;
+
+import static com.pluralsight.constants.MenuOptions.*;
+import static com.pluralsight.utility.InputHandler.*;
 
 
 public class WelcomeScreen {
 
+
     public void run() {
         showTitle();
         showWelcomePrompt();
+        InputHandler.clearScreen();
+        EntreeBuilder.defaultEntrees();
+        showTitle();
+        HomeScreen.showEntrees();
+        HomeScreen.showMenuChoices();
+        HomeScreen.userOptions();
+
+
 
     }
 
-    private void showTitle() {
+    public static void showTitle() {
 
         final String titleFormat = "%s%s " + "%s%s%s%n";
         System.out.printf(titleFormat, ConsoleColors.BLUE, MenuOptions.chez, ConsoleColors.RED, MenuOptions.boriken, ConsoleColors.RESET);
@@ -23,7 +37,7 @@ public class WelcomeScreen {
 
     private void showWelcomePrompt() {
         System.out.println("\t\t\t   Welcome to Chez Boriken!");
-        System.out.println("\t\t        Press Enter to Order...");
+        waitForEnter(pleaseEnterText);
     }
 
     private void viewReceipts() {
