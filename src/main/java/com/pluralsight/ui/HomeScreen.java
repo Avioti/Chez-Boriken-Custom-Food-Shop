@@ -44,13 +44,13 @@ public class HomeScreen {
 
         switch(choice){
             case MenuOptions.customOrder:
-                System.out.println(comingSoonText);
+                comingSoon();
                 break;
             case MenuOptions.orderEntree:
-                System.out.println(comingSoonText);
+                comingSoon();
                 break;
             case MenuOptions.viewReceipts:
-                System.out.println(comingSoonText);
+                comingSoon();
                 break;
             case MenuOptions.exit:
                 InputHandler.exit();
@@ -65,7 +65,10 @@ public class HomeScreen {
 
     }
 
-
+    private static void comingSoon(){
+        System.out.println(comingSoonText);
+        InputHandler.waitForEnter();
+    }
 
     public Order orderEntree(){
         return null;
