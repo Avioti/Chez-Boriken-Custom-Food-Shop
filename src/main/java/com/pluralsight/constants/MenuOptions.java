@@ -16,15 +16,18 @@ public class MenuOptions {
             "  \\/_____/   \\/_____/   \\/_/ /_/   \\/_/   \\/_/\\/_/   \\/_____/   \\/_/ \\/_/ \n" +
             "                                                                          ";
 
-public static final int customOrder = 1;
-public static final int orderEntree = 2;
-public static final int viewReceipts = 3;
-public static final int exit = 4;
-public static final String customOrderText = " Create Custom Plate";
-public static final String orderEntreeText = " Order Entree";
-public static final String viewReceiptsText = " View Receipts";
-public static final String exitText = " Exit Application";
-
+    public static final String menuPrompt = "\n Please select an option:\n";
+    public static final int customOrder = 1;
+    public static final int orderEntree = 2;
+    public static final int viewReceipts = 3;
+    public static final int exit = 4;
+    public static final String customOrderText = " Create Custom Plate";
+    public static final String orderEntreeText = " Order Entree";
+    public static final String viewReceiptsText = " View Receipts";
+    public static final String exitText = " Exit Application";
+    public static final String invalidOptionText = " Invalid option. Please try again.";
+    public static final String pleaseEnterText = "\t\t        Press Enter to Order...";
+    public static final String enterNumberOptionText = " Enter a number Option: ";
 
     private MenuOptions() {
         throw new AssertionError("Cannot instantiate constants class");
