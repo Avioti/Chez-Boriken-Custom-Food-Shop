@@ -1,0 +1,33 @@
+package com.pluralsight.constants;
+
+public class MenuOptions {
+    public static final String chez = " ______     __  __     ______     ______    \n" +
+            "/\\  ___\\   /\\ \\_\\ \\   /\\  ___\\   /\\___  \\   \n" +
+            "\\ \\ \\____  \\ \\  __ \\  \\ \\  __\\   \\/_/  /__  \n" +
+            " \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_____\\   /\\_____\\ \n" +
+            "  \\/_____/   \\/_/\\/_/   \\/_____/   \\/_____/ \n" +
+            "                                            ";
+
+    public static final String boriken = " \n" +
+            " ______     ______     ______     __     __  __     ______     __   __    \n" +
+            "/\\  == \\   /\\  __ \\   /\\  == \\   /\\ \\   /\\ \\/ /    /\\  ___\\   /\\ \"-.\\ \\   \n" +
+            "\\ \\  __<   \\ \\ \\/\\ \\  \\ \\  __<   \\ \\ \\  \\ \\  _\"-.  \\ \\  __\\   \\ \\ \\-.  \\  \n" +
+            " \\ \\_____\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\\\\"\\_\\ \n" +
+            "  \\/_____/   \\/_____/   \\/_/ /_/   \\/_/   \\/_/\\/_/   \\/_____/   \\/_/ \\/_/ \n" +
+            "                                                                          ";
+
+public static final int customOrder = 1;
+public static final int orderEntree = 2;
+public static final int viewReceipts = 3;
+public static final int exit = 4;
+public static final String customOrderText = " Create Custom Plate";
+public static final String orderEntreeText = " Order Entree";
+public static final String viewReceiptsText = " View Receipts";
+public static final String exitText = " Exit Application";
+
+
+    private MenuOptions() {
+        throw new AssertionError("Cannot instantiate constants class");
+    }
+
+}

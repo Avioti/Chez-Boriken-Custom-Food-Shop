@@ -1,46 +1,34 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.inventory.InventoryHandler;
-import com.pluralsight.order.Order;
-import com.pluralsight.products.Entree;
+import com.pluralsight.constants.ConsoleColors;
+import com.pluralsight.constants.MenuOptions;
 
-import java.util.List;
 
 public class WelcomeScreen {
-    List<Entree> featuredEntrees;
-    InventoryHandler inventoryHandler;
 
+    public void run() {
+        showTitle();
+        showWelcomePrompt();
 
-
-    public WelcomeScreen(List<Entree> featuredEntrees, InventoryHandler inventoryHandler) {
-        this.inventoryHandler = inventoryHandler;
-        this.featuredEntrees = featuredEntrees;
     }
 
-    public void show(){
-        System.out.println("Welcome to the Restaurant!");
-        System.out.println("Featured Entrees:");
-        for (Entree entree : featuredEntrees) {
-            System.out.println("- " + entree.getName() + ": " + entree.getDescription());
-        }
-        System.out.println("Press Enter to continue...");
-    }
+    private void showTitle() {
 
-    public void showMenuChoices(){
-        System.out.println("1. View Menu");
-        System.out.println("2. Exit");
-    }
+        final String titleFormat = "%s%s " + "%s%s%s%n";
+        System.out.printf(titleFormat, ConsoleColors.BLUE, MenuOptions.chez, ConsoleColors.RED, MenuOptions.boriken, ConsoleColors.RESET);
 
-    public void displayEntreeMenu(){
-        System.out.println("Entree Menu:");
-        for (Entree entree : featuredEntrees) {
-            System.out.println("- " + entree.getName() + ": " + entree.getDescription() + " - Price: $" + entree.getBasePrice());
-        }
+
     }
 
 
-    public Order orderEntree(){
-       return null;
+    private void showWelcomePrompt() {
+        System.out.println("\t\t\t   Welcome to Chez Boriken!");
+        System.out.println("\t\t        Press Enter to Order...");
     }
+
+    private void viewReceipts() {
+
+    }
+
 
 }
