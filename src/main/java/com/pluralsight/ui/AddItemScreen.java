@@ -1,24 +1,56 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.inventory.Drink;
-import com.pluralsight.inventory.InventoryHandler;
-import com.pluralsight.inventory.Main;
-import com.pluralsight.inventory.Side;
 
-public class AddItemScreen {
-    public AddItemScreen(InventoryHandler inv) {
+import com.pluralsight.inventory.*;
+import com.pluralsight.utility.InputHandler;
 
+
+
+import static com.pluralsight.ui.HomeScreen.userOptions;
+
+import static com.pluralsight.utility.InputHandler.scanner;
+
+public class AddItemScreen extends OrderScreen{
+
+
+
+
+
+    public static void addFoodItem(Food food){
+        plate.add(food);
+        InventoryHandler.reduceStock(food,1);
     }
 
-    public Main promptSelectMain() {
-        return null;
+    public static void addMoreItems(){
+        if(plate.size() + 1  < size.getMainLimit()){
+            Food food = AddItemScreen.promptSelectMain();
+            System.out.println("\nWould you like to add more items to your plate?");
+            if(InputHandler.getYesOrNoInput("\nEnter yes or no: \n")){
+                addFoodItem(food);
+            } else {
+                System.out.println("\nReturning to Order Menu...");
+                orderMenu();
+                userOptions();
+            }
+        }else{
+            System.out.println("\nYou have reached the maximum portions of Mains to add to your plate.");
+            orderMenu();
+            userOptions();
+        }
+
+    }
+    public static Food promptSelectMain() {
+        System.out.println("\nAdd Item - Select Main Item by Name:");
+        return InventoryHandler.getItemByName(scanner.nextLine().trim());
     }
 
-    public Side promptSelectSide() {
-        return null;
+    public static Food promptSelectSide() {
+        System.out.println("\nAdd Item - Select Side Item by Name:");
+        return InventoryHandler.getItemByName(scanner.nextLine().trim());
     }
 
-    public Drink promptSelectDrink() {
-        return null;
+    public static Food promptSelectDrink() {
+        System.out.println("\nAdd Item - Select Drink Item by Name:");
+        return InventoryHandler.getItemByName(scanner.nextLine().trim());
     }
 }

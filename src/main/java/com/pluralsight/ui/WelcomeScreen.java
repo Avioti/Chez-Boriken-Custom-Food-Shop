@@ -12,7 +12,7 @@ import static com.pluralsight.utility.InputHandler.*;
 public class WelcomeScreen {
 
 
-    public void run() {
+    public static void run() {
         showTitle();
         showWelcomePrompt();
         InputHandler.clearScreen();
@@ -35,7 +35,7 @@ public class WelcomeScreen {
     }
 
 
-    private void showWelcomePrompt() {
+    private static void showWelcomePrompt() {
         System.out.println("\t\t\t   Welcome to Chez Boriken!");
         waitForEnter(pleaseEnterText);
     }

@@ -20,7 +20,7 @@ public class HomeScreen {
 
     public static void showEntrees(){
         System.out.println("Featured Entrees");
-        System.out.println();
+        InputHandler.emptyLine();
         for (Entree entree : featuredEntrees) {
             final String menuFormat = "\t%s%d%s - %s: - Price: $%.2f\t%s";
 
@@ -29,7 +29,7 @@ public class HomeScreen {
     }
 
     public static void showMenuChoices(){
-        System.out.println();
+        InputHandler.emptyLine();
         System.out.println("\nMenu Options:");
         final String menuFormat = "\n\t%s%d. %s%s%s%n";
 
@@ -40,7 +40,7 @@ public class HomeScreen {
     }
 
     public static void userOptions(){
-        System.out.println();
+        InputHandler.emptyLine();
         int choice = InputHandler.getUserIntInput("Enter a number Option: ");
 
         switch(choice){

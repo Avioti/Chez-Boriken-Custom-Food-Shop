@@ -8,18 +8,17 @@ import com.pluralsight.utility.InventoryLoader;
 public class InventoryHandler extends InventoryLoader {
 
 
-
     public static void reduceStockBulk(Entree food, int quantity) {
-      Food main = food.getMain();
+        Food main = food.getMain();
         Food side = food.getSide();
         Food drink = food.getDrink();
-        if (main instanceof Main item){
+        if (main instanceof Main item) {
             reduceStock(item, quantity);
         }
-        if (side instanceof Side item){
+        if (side instanceof Side item) {
             reduceStock(item, quantity);
         }
-        if (drink instanceof Drink item){
+        if (drink instanceof Drink item) {
             reduceStock(item, quantity);
         }
     }
@@ -30,16 +29,16 @@ public class InventoryHandler extends InventoryLoader {
                 .forEach(item -> System.out.println("- " + item.getItemName() + ": $" + item.getBasePrice()));
     }
 
-    public static Food getItemsByCategory(String category) {
-        return items.stream()
+    public static void getItemsByCategory(String category) {
+        items.stream()
+                .filter(Food::isAvailable)
                 .filter(c -> c.getCategory().equalsIgnoreCase(category))
-                .findFirst()
-                .orElseThrow();
+                .forEach(item -> System.out.println("- " + item.getItemName() + ": $" + item.getBasePrice()));
     }
 
     public static Food getItemByName(String itemName) {
         return items.stream()
-                .filter(n -> n.getItemName().replaceAll("\\s","").equalsIgnoreCase(itemName.replaceAll("\\s","")))
+                .filter(n -> n.getItemName().replaceAll("\\s", "").equalsIgnoreCase(itemName.replaceAll("\\s", "")))
                 .findFirst()
                 .orElseThrow();
     }
@@ -51,8 +50,8 @@ public class InventoryHandler extends InventoryLoader {
                 .orElseThrow();
     }
 
-    public static double addItemsTogether(Food item1, Food item2,Food item3) {
-        return item1.getBasePrice() + item2.getBasePrice()+ item3.getBasePrice();
+    public static double addItemsTogether(Food item1, Food item2, Food item3) {
+        return item1.getBasePrice() + item2.getBasePrice() + item3.getBasePrice();
     }
 
 

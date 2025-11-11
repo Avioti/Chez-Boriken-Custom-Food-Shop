@@ -1,6 +1,8 @@
 package com.pluralsight.order;
 
 import com.pluralsight.core.Orderable;
+import com.pluralsight.products.CustomPlate;
+import com.pluralsight.products.Entree;
 import com.pluralsight.utility.ReceiptManager;
 
 import java.time.LocalDateTime;
@@ -11,11 +13,20 @@ public class Order {
     LocalDateTime createdAt;
     List<OrderItem> items;
     double totalPrice;
+    CustomPlate customPlate;
+    Entree entree;
 
-    public Order(String id, LocalDateTime createdAt, List<OrderItem> items, double totalPrice) {
+    public Order(String id, LocalDateTime createdAt, CustomPlate customPlate, double totalPrice) {
         this.id = id;
         this.createdAt = createdAt;
-        this.items = items;
+        this.customPlate = customPlate;
+        this.totalPrice = totalPrice;
+    }
+
+    public Order(String id, LocalDateTime createdAt, Entree entree, double totalPrice) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.entree = entree;
         this.totalPrice = totalPrice;
     }
 
@@ -34,9 +45,6 @@ public class Order {
         return false;
     }
 
-    public void cancel() {
-
-    }
 
     public String getId() {
         return id;

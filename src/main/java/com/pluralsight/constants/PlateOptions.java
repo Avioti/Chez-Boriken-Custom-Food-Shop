@@ -21,9 +21,9 @@ public class PlateOptions {
     public static final int sizeMedium = 2;
     public static final int sizeLarge = 3;
     public static final String sizeSmallText = " Small";
-    public static final String smallSizes = "(Mains: 2, Sides: 1, Drinks: 1)";
-    public static final String mediumSizes = "(Mains: 3, Sides: 2, Drinks: 1)";
-    public static final String largeSizes = "(Mains: 4, Sides: 3, Drinks: 2)";
+    public static final String smallSizes = "(Mains: 1, Sides: 1, Drinks: 1)";
+    public static final String mediumSizes = "(Mains: 2, Sides: 1, Drinks: 1)";
+    public static final String largeSizes = "(Mains: 3, Sides: 2, Drinks: 2)";
 
     public static final String sizeMediumText = " Medium";
     public static final String sizeLargeText = " Large";

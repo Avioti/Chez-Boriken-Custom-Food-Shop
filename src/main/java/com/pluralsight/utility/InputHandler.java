@@ -17,6 +17,17 @@ public class InputHandler {
     private static final int CLEAR_SCREEN_LINES = 60;
     public static Scanner scanner = new Scanner(System.in);
 
+
+    public static Boolean getYesOrNoInput(String prompt) {
+        System.out.print(prompt + " (y/n): ");
+        String input = scanner.nextLine().trim().toLowerCase();
+        if (input.equals("y") || input.equals("n") || input.equals("yes") || input.equals("no")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static Size getSizeInput(String prompt) {
         System.out.print(prompt);
         int choice = getUserChoice();
@@ -53,7 +64,7 @@ public class InputHandler {
     public static String getStringInput(String prompt) {
 
         System.out.println(prompt);
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 
     public static int getUserIntInput(String prompt) {
@@ -97,6 +108,10 @@ public class InputHandler {
         System.out.printf(exitFormat,ConsoleColors.BOLD,EXIT_MESSAGE,ConsoleColors.RED_BOLD, EXIT_ONE, ConsoleColors.BLUE_BOLD, EXIT_TWO, ConsoleColors.RESET);
         scanner.close();
         System.exit(0);
+    }
+
+    public static void emptyLine() {
+        System.out.println();
     }
 
 }
