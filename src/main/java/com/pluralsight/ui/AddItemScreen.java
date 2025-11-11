@@ -5,9 +5,6 @@ import com.pluralsight.inventory.*;
 import com.pluralsight.utility.InputHandler;
 
 
-
-import static com.pluralsight.ui.HomeScreen.userOptions;
-
 import static com.pluralsight.utility.InputHandler.scanner;
 
 public class AddItemScreen extends OrderScreen{
@@ -30,12 +27,12 @@ public class AddItemScreen extends OrderScreen{
             } else {
                 System.out.println("\nReturning to Order Menu...");
                 orderMenu();
-                userOptions();
+                userOrderOptions();
             }
         }else{
             System.out.println("\nYou have reached the maximum portions of Mains to add to your plate.");
             orderMenu();
-            userOptions();
+            userOrderOptions();
         }
 
     }

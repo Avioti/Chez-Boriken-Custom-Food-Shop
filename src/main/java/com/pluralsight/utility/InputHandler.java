@@ -21,11 +21,7 @@ public class InputHandler {
     public static Boolean getYesOrNoInput(String prompt) {
         System.out.print(prompt + " (y/n): ");
         String input = scanner.nextLine().trim().toLowerCase();
-        if (input.equals("y") || input.equals("n") || input.equals("yes") || input.equals("no")) {
-            return true;
-        } else {
-            return false;
-        }
+        return input.equals("y") || input.equals("n") || input.equals("yes") || input.equals("no");
     }
 
     public static Size getSizeInput(String prompt) {
@@ -89,7 +85,7 @@ public class InputHandler {
         WelcomeScreen.showTitle();
         HomeScreen.showEntrees();
         HomeScreen.showMenuChoices();
-        HomeScreen.userOptions();
+        HomeScreen.userHomeOptions();
     }
 
     public static void waitAndContinue() {

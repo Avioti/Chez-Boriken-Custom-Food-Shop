@@ -2,10 +2,8 @@ package com.pluralsight.ui;
 
 import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.MenuOptions;
-import com.pluralsight.inventory.InventoryHandler;
 import com.pluralsight.order.Order;
 import com.pluralsight.products.Entree;
-import com.pluralsight.products.EntreeBuilder;
 import com.pluralsight.utility.InputHandler;
 
 import static com.pluralsight.products.EntreeBuilder.featuredEntrees;
@@ -39,13 +37,13 @@ public class HomeScreen {
         System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.exit,ConsoleColors.RED,MenuOptions.exitText, ConsoleColors.RESET);
     }
 
-    public static void userOptions(){
+    public static void userHomeOptions(){
         InputHandler.emptyLine();
         int choice = InputHandler.getUserIntInput("Enter a number Option: ");
 
         switch(choice){
             case MenuOptions.customOrder:
-                OrderScreen.show();
+                OrderScreen.customOrderScreen();
                 break;
             case MenuOptions.orderEntree:
                 comingSoon();

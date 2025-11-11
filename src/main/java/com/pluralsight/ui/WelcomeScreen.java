@@ -20,7 +20,7 @@ public class WelcomeScreen {
         showTitle();
         HomeScreen.showEntrees();
         HomeScreen.showMenuChoices();
-        HomeScreen.userOptions();
+        HomeScreen.userHomeOptions();
 
 
 

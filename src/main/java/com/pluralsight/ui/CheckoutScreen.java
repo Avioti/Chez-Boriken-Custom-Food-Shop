@@ -3,15 +3,13 @@ package com.pluralsight.ui;
 import com.pluralsight.order.Order;
 import com.pluralsight.utility.InputHandler;
 
-public class CheckoutScreen {
+
+public class CheckoutScreen extends OrderScreen{
 
     public static void showSummary(Order order){
-        System.out.println("Order Summary:");
-        order.getItems().forEach(item ->
-            System.out.println(item.getProduct() + " - $" + item.getTotalPrice())
-        );
-
-
+        System.out.println("\nOrder Summary");
+        getPlateItems();
+        System.out.printf("\nTotal Price: $%.2f%n", customPlate.getPrice());
 
     }
 
@@ -24,7 +22,5 @@ public class CheckoutScreen {
         return false;
     }
 
-    public void cancelOrder(){
 
-    }
 }

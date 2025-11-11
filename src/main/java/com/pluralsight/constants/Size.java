@@ -1,15 +1,15 @@
 package com.pluralsight.constants;
 
 public enum Size {
-    SMALL(2,1,1),
-    MEDIUM(3,2,1),
-    LARGE(4,3,2);
+    SMALL(2,1,1,1.0),
+    MEDIUM(3,2,1,1.5),
+    LARGE(4,3,2,2.0);
 
-    private Size(int mainLimit, int sideLimit, int drinkLimit) {
+    private Size(int mainLimit, int sideLimit, int drinkLimit,double priceMultiplier) {
         this.mainLimit = mainLimit;
         this.sideLimit = sideLimit;
         this.drinkLimit = drinkLimit;
-        this.priceMultiplier = 1 + (ordinal() * 0.25);
+        this.priceMultiplier = priceMultiplier;
     }
 
     final int mainLimit;

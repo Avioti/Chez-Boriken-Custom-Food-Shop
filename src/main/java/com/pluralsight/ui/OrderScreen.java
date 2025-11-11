@@ -4,7 +4,6 @@ import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.PlateOptions;
 import com.pluralsight.constants.Size;
 import com.pluralsight.inventory.Food;
-import com.pluralsight.inventory.InventoryHandler;
 import com.pluralsight.order.Order;
 import com.pluralsight.products.CustomPlate;
 import com.pluralsight.utility.InputHandler;
@@ -16,9 +15,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.pluralsight.products.CustomPlate.*;
-import static com.pluralsight.ui.AddItemScreen.addFoodItem;
-import static com.pluralsight.ui.AddItemScreen.addMoreItems;
-import static com.pluralsight.ui.HomeScreen.comingSoon;
 
 public class OrderScreen {
     private static Order currentOrder;
@@ -26,9 +22,10 @@ public class OrderScreen {
     static protected ArrayList<Food> plate = new ArrayList<>();
     private static String customerName;
     private static boolean pineappleBowl;
-    private static CustomPlate customPlate;
+    protected static CustomPlate customPlate;
+    private static boolean running = true;
 
-    public static void show(){
+    public static void customOrderScreen(){
         InputHandler.clearScreen();
 
         WelcomeScreen.showTitle();
@@ -39,9 +36,13 @@ public class OrderScreen {
 
         showSizeMenu();
 
-        orderMenu();
+        while(running){
+            orderMenu();
 
-        userOptions();
+            userOrderOptions();
+        }
+
+
 
     }
 
@@ -75,7 +76,7 @@ public class OrderScreen {
     }
 
     public static void pineappleQuestion(){
-        String pineappleChoice = InputHandler.getStringInput("\nWould you like plate your food in a Pineapple for an additional $2.50 (yes/no): ").toLowerCase();
+        String pineappleChoice = InputHandler.getStringInput("\nWould you like to plate your food in a Pineapple for an additional $2.50 (yes/no): ").toLowerCase();
 
         pineappleBowl = pineappleChoice.equals("yes") || pineappleChoice.equals("y");
     }
@@ -95,37 +96,42 @@ public class OrderScreen {
     public static void createCustomPlate(){
         customPlate = new CustomPlate(pineappleBowl,plate,size,customerName);
         currentOrder = new Order(randomId(), LocalDateTime.now(),customPlate, customPlate.getPrice());
-        currentOrder.addItem(customPlate,1);
         System.out.println("\nYour custom plate has been created and added to your order!");
     }
 
     public static void checkOut(){
         createCustomPlate();
-        System.out.println("\nProceeding to checkout...");
         CheckoutScreen.showSummary(currentOrder);
+        System.out.println("\nProceeding to checkout...");
         if(CheckoutScreen.confirmOrder()){
            InputHandler.exit();
         } else {
-            System.out.println("\nContinue modifying your order...");
             orderMenu();
-            userOptions();
+            userOrderOptions();
         }
     }
 
     public static void cancelOrder(){
         if(InputHandler.getYesOrNoInput("\nAre you sure you want to cancel your order? (y/n): ")){
             plate.clear();
+            running = false;
             System.out.println("\nYour order has been cancelled. Returning to Home Screen...");
             WelcomeScreen.run();
         } else {
             System.out.println("\nReturning to Order Menu...");
             orderMenu();
-            userOptions();
+            userOrderOptions();
         }
 
     }
 
-    private static void userOptions(){
+    public static void getPlateItems(){
+        System.out.println("\nCurrent items on your plate: " + customPlate.getSize());
+        plate.forEach(item -> System.out.println("- " + item.getItemName() ));
+
+    }
+
+    public static void userOrderOptions(){
         InputHandler.emptyLine();
         int choice = InputHandler.getUserIntInput("Enter a number Option: ");
 

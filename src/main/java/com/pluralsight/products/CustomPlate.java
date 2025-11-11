@@ -24,16 +24,19 @@ public class CustomPlate implements Orderable {
         this.pineappleBowl = pineappleBowl;
         this.selectedFood = selectedFood;
         this.size = size;
-        this.customerName = customerName;    }
+        this.customerName = customerName;
+    }
 
 
     public void setPineappleBowl(boolean option) {
         this.pineappleBowl = option;
     }
 
+    public Size getSize() {
+        return size;
+    }
 
-
-    public static void addMain(){
+    public static void addMain() {
         InputHandler.emptyLine();
         InventoryHandler.getItemsByCategory("main");
         addFoodItem(AddItemScreen.promptSelectMain());
@@ -43,7 +46,7 @@ public class CustomPlate implements Orderable {
 
     }
 
-    public static void addSide(){
+    public static void addSide() {
         InputHandler.emptyLine();
         InventoryHandler.getItemsByCategory("Side");
         addFoodItem(AddItemScreen.promptSelectSide());
@@ -52,7 +55,7 @@ public class CustomPlate implements Orderable {
 
     }
 
-    public static void addDrink(){
+    public static void addDrink() {
         InputHandler.emptyLine();
         InventoryHandler.getItemsByCategory("Drink");
         addFoodItem(AddItemScreen.promptSelectDrink());
@@ -62,16 +65,28 @@ public class CustomPlate implements Orderable {
 
     @Override
     public double getPrice() {
-        for(Food item : selectedFood){
-            if(size == Size.SMALL){
-                return item.getBasePrice();
-            } else if (size == Size.MEDIUM) {
-                return item.getBasePrice() * 1.5;
-            } else if (size == Size.LARGE) {
-                return item.getBasePrice() * 2;
-            }
+        if (selectedFood.isEmpty()) {
+            return 0;
         }
-        return 0;
+
+        double totalPrice = selectedFood.stream()
+                .mapToDouble(item -> {
+                    if (size == Size.SMALL)
+                        return item.getBasePrice();
+                    else if (size == Size.MEDIUM)
+                        return item.getBasePrice() * size.getPriceMultiplier();
+                    else if (size == Size.LARGE)
+                        return item.getBasePrice() * size.getPriceMultiplier();
+                    else return 0;
+                })
+                .sum();
+
+        if (pineappleBowl) {
+            totalPrice += pineappleBowlPrice;
+        }
+        return totalPrice;
+
+
     }
 
     @Override
