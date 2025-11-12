@@ -14,35 +14,32 @@ public class HomeScreen {
     private static final String comingSoonText = "Feature coming soon!";
 
 
-
-
-
-    public static void showEntrees(){
+    public static void showEntrees() {
         System.out.println("Featured Entrees");
         InputHandler.emptyLine();
         for (Entree entree : featuredEntrees) {
             final String menuFormat = "\t%s%d%s - %s: - Price: $%.2f\t%s";
 
-            System.out.printf(menuFormat,ConsoleColors.BLUE_BOLD,entree.getId(),ConsoleColors.RED,entree.getDisplayName(), entree.getPrice(),ConsoleColors.RESET);
+            System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, entree.getId(), ConsoleColors.RED, entree.getDisplayName(), entree.getPrice(), ConsoleColors.RESET);
         }
     }
 
-    public static void showMenuChoices(){
+    public static void showMenuChoices() {
         InputHandler.emptyLine();
         System.out.println("\nMenu Options:");
         final String menuFormat = "\n\t%s%d. %s%s%s%n";
 
-        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.customOrder,ConsoleColors.RED,MenuOptions.customOrderText, ConsoleColors.RESET);
-        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.orderEntree,ConsoleColors.RED,MenuOptions.orderEntreeText, ConsoleColors.RESET);
-        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.viewReceipts,ConsoleColors.RED,MenuOptions.viewReceiptsText, ConsoleColors.RESET);
-        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.exit,ConsoleColors.RED,MenuOptions.exitText, ConsoleColors.RESET);
+        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.customOrder, ConsoleColors.RED, MenuOptions.customOrderText, ConsoleColors.RESET);
+        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.orderEntree, ConsoleColors.RED, MenuOptions.orderEntreeText, ConsoleColors.RESET);
+        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.viewReceipts, ConsoleColors.RED, MenuOptions.viewReceiptsText, ConsoleColors.RESET);
+        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.exit, ConsoleColors.RED, MenuOptions.exitText, ConsoleColors.RESET);
     }
 
-    public static void userHomeOptions(){
+    public static void userHomeOptions() {
         InputHandler.emptyLine();
         int choice = InputHandler.getUserIntInput("Enter a number Option: ");
 
-        switch(choice){
+        switch (choice) {
             case MenuOptions.customOrder:
                 OrderScreen.customOrderScreen();
                 break;
@@ -65,12 +62,12 @@ public class HomeScreen {
 
     }
 
-    public static void comingSoon(){
+    public static void comingSoon() {
         System.out.println(comingSoonText);
         InputHandler.waitForEnter();
     }
 
-    public Order orderEntree(){
+    public Order orderEntree() {
         return null;
     }
 

@@ -2,13 +2,16 @@ package com.pluralsight.utility;
 
 import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.Size;
+import com.pluralsight.inventory.Food;
 import com.pluralsight.ui.HomeScreen;
 import com.pluralsight.ui.WelcomeScreen;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class InputHandler {
+
     private static final int INVALID_INPUT = -1;
     public static final String RETURN_TO_MENU_MESSAGE = "Press Enter to return to menu";
     private static final String EXIT_MESSAGE = "Thank you for Visiting ";
@@ -16,22 +19,28 @@ public class InputHandler {
     private static final String EXIT_TWO = "Boriken!";
     private static final int CLEAR_SCREEN_LINES = 60;
     public static Scanner scanner = new Scanner(System.in);
+    public static boolean running = true;
 
 
     public static Boolean getYesOrNoInput(String prompt) {
         System.out.print(prompt + " (y/n): ");
         String input = scanner.nextLine().trim().toLowerCase();
-        return input.equals("y") || input.equals("n") || input.equals("yes") || input.equals("no");
+        if (input.equals("y") || input.equals("yes")) {
+            return true;
+        } else if (input.equals("n") || input.equals("no")) {
+            return false;
+        } else {
+            return false;
+        }
     }
 
     public static Size getSizeInput(String prompt) {
         System.out.print(prompt);
         int choice = getUserChoice();
         return switch (choice) {
-            case 1 -> Size.SMALL;
             case 2 -> Size.MEDIUM;
             case 3 -> Size.LARGE;
-            default -> null;
+            default -> Size.SMALL;
         };
     }
 
@@ -63,15 +72,10 @@ public class InputHandler {
         return scanner.nextLine().trim();
     }
 
+
     public static int getUserIntInput(String prompt) {
         System.out.print(prompt);
         return getUserChoice();
-    }
-
-    public static double getDoubleInput(String prompt) {
-
-        System.out.print(prompt);
-        return getUserAnswer();
     }
 
     public static void waitForEnter(String prompt) {
@@ -101,9 +105,10 @@ public class InputHandler {
     public static void exit() {
         System.out.println();
         final String exitFormat = "\t%s%s%s%s%s%s%s%n";
-        System.out.printf(exitFormat,ConsoleColors.BOLD,EXIT_MESSAGE,ConsoleColors.RED_BOLD, EXIT_ONE, ConsoleColors.BLUE_BOLD, EXIT_TWO, ConsoleColors.RESET);
+        System.out.printf(exitFormat, ConsoleColors.BOLD, EXIT_MESSAGE, ConsoleColors.RED_BOLD, EXIT_ONE, ConsoleColors.BLUE_BOLD, EXIT_TWO, ConsoleColors.RESET);
         scanner.close();
         System.exit(0);
+        running = false;
     }
 
     public static void emptyLine() {

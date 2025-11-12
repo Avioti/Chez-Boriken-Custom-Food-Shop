@@ -1,12 +1,12 @@
 package com.pluralsight.constants;
 
 public class MenuOptions {
-    public static final String chez = " ______     __  __     ______     ______    \n" +
-            "/\\  ___\\   /\\ \\_\\ \\   /\\  ___\\   /\\___  \\   \n" +
-            "\\ \\ \\____  \\ \\  __ \\  \\ \\  __\\   \\/_/  /__  \n" +
-            " \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_____\\   /\\_____\\ \n" +
-            "  \\/_____/   \\/_/\\/_/   \\/_____/   \\/_____/ \n" +
-            "                                            ";
+    public static final String chez = "\t\t ______     __  __     ______     ______    \n" +
+            "\t\t/\\  ___\\   /\\ \\_\\ \\   /\\  ___\\   /\\___  \\   \n" +
+            "\t\t\\ \\ \\____  \\ \\  __ \\  \\ \\  __\\   \\/_/  /__  \n" +
+            "\t\t \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_____\\   /\\_____\\ \n" +
+            "\t\t  \\/_____/   \\/_/\\/_/   \\/_____/   \\/_____/ \n" +
+            "\t\t                                            ";
 
     public static final String boriken = " \n" +
             " ______     ______     ______     __     __  __     ______     __   __    \n" +
@@ -27,7 +27,6 @@ public class MenuOptions {
     public static final String exitText = " Exit Application";
     public static final String invalidOptionText = " Invalid option. Please try again.";
     public static final String pleaseEnterText = "\t\t        Press Enter to Order...";
-    public static final String enterNumberOptionText = " Enter a number Option: ";
 
     private MenuOptions() {
         throw new AssertionError("Cannot instantiate constants class");

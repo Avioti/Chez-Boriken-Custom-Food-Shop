@@ -3,10 +3,9 @@ package com.pluralsight.utility;
 import com.pluralsight.order.Order;
 import com.pluralsight.ui.OrderScreen;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 
 import static com.pluralsight.ui.OrderScreen.dtf;
@@ -14,6 +13,8 @@ import static com.pluralsight.ui.OrderScreen.dtf;
 public class ReceiptManager {
     final static String receiptFolder = "src/main/resources/receipts/";
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(dtf);
+    private static final File directory = new File(receiptFolder);
+    private static final File[] files = directory.listFiles();
     public static String createReceipt(Order order) {
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFolder + order.getCreatedAt().format(DATE_FORMAT)+".txt"));
@@ -36,23 +37,28 @@ public class ReceiptManager {
         return "Receipt for order #" + order.getId() + "|" + order.getTotalPrice() + "|" + order.getCreatedAt();
     }
 
-    public void loadReceipts() {
-        // Logic to load existing receipts from the receiptFolder
-    }
 
     public static void displayReceipts(){
-        File directory = new File(receiptFolder);
-
-        File[] files = directory.listFiles();
-
         if(files != null){
-            for(File file : files){
-                System.out.println("Receipt File: " + file.getName());
-            }
+            Arrays.stream(files).forEach(file -> {
+                try{
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    String line;
+                    while((line = reader.readLine()) != null){
+                        String[] parts = line.split("\\|");
+                        //temp printout
+                        System.out.println("Receipt File: " + file.getName());
+                        System.out.printf("\tOrder ID: %s | Total Price: $%.2f | Item: %s%n", parts[0], Double.parseDouble(parts[1]), parts[2]);
+                    }
+                    reader.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
         } else {
             System.out.println("No receipts found.");
         }
 
-        InputHandler.waitForEnter();
+        InputHandler.waitAndContinue();
     }
 }

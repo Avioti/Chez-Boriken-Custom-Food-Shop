@@ -14,19 +14,12 @@ public class WelcomeScreen {
 
 
     public static void run() {
+        InputHandler.clearScreen();
         InventoryHandler.loadFromCsv();
         showTitle();
         showWelcomePrompt();
         EntreeBuilder.defaultEntrees();
-        while (running){
-            InputHandler.clearScreen();
-            showTitle();
-            HomeScreen.showEntrees();
-            HomeScreen.showMenuChoices();
-            HomeScreen.userHomeOptions();
-
-        }
-
+        mainLoop();
 
 
     }
@@ -46,6 +39,18 @@ public class WelcomeScreen {
     }
 
     private void viewReceipts() {
+
+    }
+
+    public static void mainLoop() {
+        while (running) {
+            InputHandler.clearScreen();
+            showTitle();
+            HomeScreen.showEntrees();
+            HomeScreen.showMenuChoices();
+            HomeScreen.userHomeOptions();
+
+        }
 
     }
 

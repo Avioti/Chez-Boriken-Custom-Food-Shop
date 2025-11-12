@@ -1,14 +1,11 @@
 package com.pluralsight.ui;
 
 
-import com.pluralsight.constants.Size;
+
 import com.pluralsight.inventory.*;
 import com.pluralsight.utility.InputHandler;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.pluralsight.utility.InputHandler.scanner;
 
 public class AddItemScreen extends OrderScreen {

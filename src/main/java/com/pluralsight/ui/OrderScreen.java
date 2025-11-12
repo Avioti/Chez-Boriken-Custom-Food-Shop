@@ -115,14 +115,23 @@ public class OrderScreen {
     }
 
 
+    public static void cartCheck(){
+        if(selectedMains.isEmpty() && selectedSides.isEmpty() && selectedDrinks.isEmpty()){
+            System.out.println("\nYou must add at least one Side or Drink to your plate before proceeding to checkout.");
+            orderMenu();
+            userOrderOptions();
+        }
+    }
+
 
     public static void checkOut() {
+        cartCheck();
         createCustomPlate();
         CheckoutScreen.showSummary(currentOrder);
         System.out.println("\nProceeding to checkout...");
         if (CheckoutScreen.confirmOrder()) {
             System.out.println(ReceiptManager.createReceipt(currentOrder));
-            InputHandler.exit();
+            CheckoutScreen.addAnotherOrder();
         } else {
             orderMenu();
             userOrderOptions();
@@ -130,13 +139,14 @@ public class OrderScreen {
     }
 
     public static void cancelOrder() {
-        if (InputHandler.getYesOrNoInput("\nAre you sure you want to cancel your order? (y/n): ")) {
+        if (InputHandler.getYesOrNoInput("\nAre you sure you want to cancel your order? ")) {
             plate.clear();
             selectedMains.clear();
             selectedDrinks.clear();
             selectedSides.clear();
             running = false;
             System.out.println("\nYour order has been cancelled. Returning to Home Screen...");
+
             WelcomeScreen.run();
         } else {
             System.out.println("\nReturning to Order Menu...");
