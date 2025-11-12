@@ -36,11 +36,11 @@ public class EntreeBuilder {
         featuredEntrees.add(new Entree(2,
                 "Pernil with Maduros & Coco Rico",
                 InventoryHandler.getItemByName("Pernil"),
-                InventoryHandler.getItemByName("Maduros"),
+                InventoryHandler.getItemByName("Platano Maduros"),
                 InventoryHandler.getItemByName("Coco Rico"),
                 InventoryHandler.addItemsTogether(
                         InventoryHandler.getItemByName("Pernil"),
-                        InventoryHandler.getItemByName("Maduros"),
+                        InventoryHandler.getItemByName("Platano Maduros"),
                         InventoryHandler.getItemByName("Coco Rico")
                 ),
                 "Slow-roasted pork shoulder with crispy skin paired with sweet fried plantains"

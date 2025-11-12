@@ -40,14 +40,14 @@ public class InventoryHandler extends InventoryLoader {
         return items.stream()
                 .filter(n -> n.getItemName().replaceAll("\\s", "").equalsIgnoreCase(itemName.replaceAll("\\s", "")))
                 .findFirst()
-                .orElseThrow();
+                .orElse(null);
     }
 
     public static Food lowPriceFilter(double lowerThan) {
         return items.stream()
                 .filter(i -> i.getBasePrice() < lowerThan)
                 .findFirst()
-                .orElseThrow();
+                .orElse(null);
     }
 
     public static double addItemsTogether(Food item1, Food item2, Food item3) {
