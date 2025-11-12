@@ -6,23 +6,24 @@ import com.pluralsight.products.Entree;
 import com.pluralsight.utility.ReceiptManager;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class Order {
     String id;
-    LocalDateTime createdAt;
+    ZonedDateTime createdAt;
     double totalPrice;
     CustomPlate customPlate;
     Entree entree;
 
-    public Order(String id, LocalDateTime createdAt, CustomPlate customPlate, double totalPrice) {
+    public Order(String id, ZonedDateTime createdAt, CustomPlate customPlate, double totalPrice) {
         this.id = id;
         this.createdAt = createdAt;
         this.customPlate = customPlate;
         this.totalPrice = totalPrice;
     }
 
-    public Order(String id, LocalDateTime createdAt, Entree entree, double totalPrice) {
+    public Order(String id, ZonedDateTime createdAt, Entree entree, double totalPrice) {
         this.id = id;
         this.createdAt = createdAt;
         this.entree = entree;
@@ -35,7 +36,7 @@ public class Order {
         return id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 

@@ -9,16 +9,16 @@ import com.pluralsight.utility.InputHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.pluralsight.ui.AddItemScreen.addFoodItem;
-import static com.pluralsight.ui.AddItemScreen.addMoreItems;
+import static com.pluralsight.ui.AddItemScreen.*;
 import static com.pluralsight.ui.OrderScreen.pineappleQuestion;
 
 public class CustomPlate implements Orderable {
     String customerName;
-    Size size;
-    List<Food> selectedFood;
+    static Size size;
+    public static List<Food> selectedFood;
     boolean pineappleBowl;
     double pineappleBowlPrice = 2.00;
+
 
     public CustomPlate(boolean pineappleBowl, List<Food> selectedFood, Size size, String customerName) {
         this.pineappleBowl = pineappleBowl;
@@ -42,6 +42,7 @@ public class CustomPlate implements Orderable {
         addFoodItem(AddItemScreen.promptSelectMain());
         addMoreItems();
         pineappleQuestion();
+
 
 
     }

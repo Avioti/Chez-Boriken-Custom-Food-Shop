@@ -1,9 +1,9 @@
 package com.pluralsight.constants;
 
 public enum Size {
-    SMALL(2,1,1,1.0),
-    MEDIUM(3,2,1,1.5),
-    LARGE(4,3,2,2.0);
+    SMALL(1,1,1,1.0),
+    MEDIUM(2,2,1,1.5),
+    LARGE(3,3,2,2.0);
 
     private Size(int mainLimit, int sideLimit, int drinkLimit,double priceMultiplier) {
         this.mainLimit = mainLimit;
@@ -32,6 +32,8 @@ public enum Size {
     public double getPriceMultiplier() {
         return priceMultiplier;
     }
+
+
 
 
     public static Size fromString(String sizeStr) {

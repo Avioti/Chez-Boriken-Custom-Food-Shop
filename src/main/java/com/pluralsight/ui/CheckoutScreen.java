@@ -14,7 +14,7 @@ public class CheckoutScreen extends OrderScreen{
     }
 
     public static boolean confirmOrder(){
-        if(InputHandler.getYesOrNoInput("\n Would you like to confirm your order? (yes/no): ")){
+        if(InputHandler.getYesOrNoInput("\n Would you like to confirm your order?")){
             System.out.println("\nOrder confirmed! Thank you for dining with us.");
             return true;
         }

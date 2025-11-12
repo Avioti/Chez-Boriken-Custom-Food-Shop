@@ -5,6 +5,7 @@ import com.pluralsight.constants.MenuOptions;
 import com.pluralsight.order.Order;
 import com.pluralsight.products.Entree;
 import com.pluralsight.utility.InputHandler;
+import com.pluralsight.utility.ReceiptManager;
 
 import static com.pluralsight.products.EntreeBuilder.featuredEntrees;
 
@@ -49,7 +50,7 @@ public class HomeScreen {
                 comingSoon();
                 break;
             case MenuOptions.viewReceipts:
-                comingSoon();
+                ReceiptManager.displayReceipts();
                 break;
             case MenuOptions.exit:
                 InputHandler.exit();

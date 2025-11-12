@@ -2,6 +2,7 @@ package com.pluralsight.ui;
 
 import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.MenuOptions;
+import com.pluralsight.inventory.InventoryHandler;
 import com.pluralsight.products.EntreeBuilder;
 import com.pluralsight.utility.InputHandler;
 
@@ -13,14 +14,18 @@ public class WelcomeScreen {
 
 
     public static void run() {
+        InventoryHandler.loadFromCsv();
         showTitle();
         showWelcomePrompt();
-        InputHandler.clearScreen();
         EntreeBuilder.defaultEntrees();
-        showTitle();
-        HomeScreen.showEntrees();
-        HomeScreen.showMenuChoices();
-        HomeScreen.userHomeOptions();
+        while (running){
+            InputHandler.clearScreen();
+            showTitle();
+            HomeScreen.showEntrees();
+            HomeScreen.showMenuChoices();
+            HomeScreen.userHomeOptions();
+
+        }
 
 
 
