@@ -23,7 +23,7 @@ public class InputHandler {
 
 
     public static Boolean getYesOrNoInput(String prompt) {
-        System.out.print(prompt + " (y/n): ");
+        System.out.print(prompt + "(y/n): ");
         String input = scanner.nextLine().trim().toLowerCase();
         if (input.equals("y") || input.equals("yes")) {
             return true;
@@ -68,13 +68,17 @@ public class InputHandler {
 
     public static String getStringInput(String prompt) {
 
-        System.out.println(prompt);
+        System.out.print(prompt);
+
+
         return scanner.nextLine().trim();
     }
 
 
     public static int getUserIntInput(String prompt) {
         System.out.print(prompt);
+
+
         return getUserChoice();
     }
 
@@ -92,18 +96,21 @@ public class InputHandler {
         HomeScreen.userHomeOptions();
     }
 
-    public static void waitAndContinue() {
-        waitForEnter();
-    }
+
 
     public static void clearScreen() {
         for (int i = 0; i < CLEAR_SCREEN_LINES; i++) {
-            System.out.println();
+            emptyLine();
+        }
+    }
+    public static void clearScreen(int amount) {
+        for (int i = 0; i < amount; i++) {
+            emptyLine();
         }
     }
 
     public static void exit() {
-        System.out.println();
+        emptyLine();
         final String exitFormat = "\t%s%s%s%s%s%s%s%n";
         System.out.printf(exitFormat, ConsoleColors.BOLD, EXIT_MESSAGE, ConsoleColors.RED_BOLD, EXIT_ONE, ConsoleColors.BLUE_BOLD, EXIT_TWO, ConsoleColors.RESET);
         scanner.close();

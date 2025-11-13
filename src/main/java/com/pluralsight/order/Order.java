@@ -1,35 +1,24 @@
 package com.pluralsight.order;
 
-import com.pluralsight.core.Orderable;
-import com.pluralsight.products.CustomPlate;
+
 import com.pluralsight.products.Entree;
-import com.pluralsight.utility.ReceiptManager;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.List;
 
-public class Order {
+
+public class Order<T> {
     String id;
     ZonedDateTime createdAt;
     double totalPrice;
-    CustomPlate customPlate;
+    T plate;
     Entree entree;
 
-    public Order(String id, ZonedDateTime createdAt, CustomPlate customPlate, double totalPrice) {
+    public Order(String id, ZonedDateTime createdAt, T plate, double totalPrice) {
         this.id = id;
         this.createdAt = createdAt;
-        this.customPlate = customPlate;
+        this.plate = plate;
         this.totalPrice = totalPrice;
     }
-
-    public Order(String id, ZonedDateTime createdAt, Entree entree, double totalPrice) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.entree = entree;
-        this.totalPrice = totalPrice;
-    }
-
 
 
     public String getId() {
@@ -44,8 +33,8 @@ public class Order {
         return totalPrice;
     }
 
-    public CustomPlate getCustomPlate() {
-        return customPlate;
+    public T getPlate() {
+        return plate;
     }
 
     public Entree getEntree() {
@@ -58,7 +47,7 @@ public class Order {
                 "id='" + id + '\'' +
                 ", createdAt=" + createdAt +
                 ", totalPrice=" + totalPrice +
-                ", customPlate=" + customPlate +
+                ", plate=" + plate +
                 ", entree=" + entree +
                 '}';
     }

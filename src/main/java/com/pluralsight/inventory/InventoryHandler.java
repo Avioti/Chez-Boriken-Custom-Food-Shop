@@ -1,6 +1,7 @@
 package com.pluralsight.inventory;
 
 
+import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.products.Entree;
 import com.pluralsight.utility.InventoryLoader;
 
@@ -33,7 +34,7 @@ public class InventoryHandler extends InventoryLoader {
         items.stream()
                 .filter(Food::isAvailable)
                 .filter(c -> c.getCategory().equalsIgnoreCase(category))
-                .forEach(item -> System.out.println("- " + item.getItemName() + ": $" + item.getBasePrice()));
+                .forEach(item -> System.out.printf("\t%s-%s %s: %s%s$%.2f%s\n", ConsoleColors.BLUE, ConsoleColors.RED, item.getItemName(),ConsoleColors.RESET,ConsoleColors.BOLD, item.getBasePrice(), ConsoleColors.RESET));
     }
 
     public static Food getItemByName(String itemName) {
@@ -55,4 +56,7 @@ public class InventoryHandler extends InventoryLoader {
     }
 
 
+    public static void increaseStock(Food food, int i) {
+        food.increaseQuantity(i);
+    }
 }

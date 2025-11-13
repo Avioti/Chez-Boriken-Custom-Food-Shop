@@ -2,6 +2,7 @@ package com.pluralsight.ui;
 
 import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.MenuOptions;
+import com.pluralsight.constants.PlateOptions;
 import com.pluralsight.order.Order;
 import com.pluralsight.products.Entree;
 import com.pluralsight.utility.InputHandler;
@@ -15,7 +16,7 @@ public class HomeScreen {
 
 
     public static void showEntrees() {
-        System.out.println("Featured Entrees");
+        System.out.printf("%s%s%s",ConsoleColors.BLUE,"\nFeatured Entrees\n",ConsoleColors.RESET);
         InputHandler.emptyLine();
         for (Entree entree : featuredEntrees) {
             final String menuFormat = "\t%s%d%s - %s: - Price: $%.2f\t%s";
@@ -26,7 +27,7 @@ public class HomeScreen {
 
     public static void showMenuChoices() {
         InputHandler.emptyLine();
-        System.out.println("\nMenu Options:");
+        System.out.println("\nMenu Options");
         final String menuFormat = "\n\t%s%d. %s%s%s%n";
 
         System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, MenuOptions.customOrder, ConsoleColors.RED, MenuOptions.customOrderText, ConsoleColors.RESET);
@@ -37,7 +38,7 @@ public class HomeScreen {
 
     public static void userHomeOptions() {
         InputHandler.emptyLine();
-        int choice = InputHandler.getUserIntInput("Enter a number Option: ");
+        int choice = InputHandler.getUserIntInput(PlateOptions.enterNumberOption);
 
         switch (choice) {
             case MenuOptions.customOrder:

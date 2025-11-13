@@ -1,12 +1,13 @@
 package com.pluralsight.products;
 
+import com.pluralsight.constants.ConsoleColors;
+import com.pluralsight.constants.PlateOptions;
 import com.pluralsight.core.Orderable;
 import com.pluralsight.inventory.*;
 import com.pluralsight.constants.Size;
 import com.pluralsight.ui.AddItemScreen;
 import com.pluralsight.utility.InputHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.pluralsight.ui.AddItemScreen.*;
@@ -37,17 +38,21 @@ public class CustomPlate implements Orderable {
     }
 
     public static void addMain() {
+
         InputHandler.emptyLine();
         InventoryHandler.getItemsByCategory("main");
+
         addFoodItem(AddItemScreen.promptSelectMain());
-        addMoreItems();
         pineappleQuestion();
+        addMoreItems();
+
 
 
 
     }
 
     public static void addSide() {
+
         InputHandler.emptyLine();
         InventoryHandler.getItemsByCategory("Side");
         addFoodItem(AddItemScreen.promptSelectSide());
@@ -57,11 +62,39 @@ public class CustomPlate implements Orderable {
     }
 
     public static void addDrink() {
+
         InputHandler.emptyLine();
         InventoryHandler.getItemsByCategory("Drink");
         addFoodItem(AddItemScreen.promptSelectDrink());
         addMoreItems();
 
+    }
+
+    public static void plateSizeCheck() {
+        for(Food item : selectedFood) {
+            if (item.getCategory().equalsIgnoreCase("main")) {
+                if (selectedFood.stream().filter(f -> f.getCategory().equalsIgnoreCase("main")).count() > size.getMainLimit()) {
+                    System.out.printf("\n%s%s%s You have reached the maximum number of mains for a %s plate.%s\n",
+                            ConsoleColors.RED, PlateOptions.alert, ConsoleColors.RESET, size.name().toLowerCase(), PlateOptions.equals);
+                    selectedFood.remove(item);
+                    InventoryHandler.increaseStock(item, 1);
+                }
+            } else if (item.getCategory().equalsIgnoreCase("side")) {
+                if (selectedFood.stream().filter(f -> f.getCategory().equalsIgnoreCase("side")).count() > size.getSideLimit()) {
+                    System.out.printf("\n%s%s%s You have reached the maximum number of sides for a %s plate.%s\n",
+                            ConsoleColors.RED, PlateOptions.alert, ConsoleColors.RESET, size.name().toLowerCase(), PlateOptions.equals);
+                    selectedFood.remove(item);
+                    InventoryHandler.increaseStock(item, 1);
+                }
+            } else if (item.getCategory().equalsIgnoreCase("drink")) {
+                if (selectedFood.stream().filter(f -> f.getCategory().equalsIgnoreCase("drink")).count() > size.getDrinkLimit()) {
+                    System.out.printf("\n%s%s%s You have reached the maximum number of drinks for a %s plate.%s\n",
+                            ConsoleColors.RED, PlateOptions.alert, ConsoleColors.RESET, size.name().toLowerCase(), PlateOptions.equals);
+                    selectedFood.remove(item);
+                    InventoryHandler.increaseStock(item, 1);
+                }
+            }
+        }
     }
 
     @Override
@@ -97,12 +130,12 @@ public class CustomPlate implements Orderable {
 
     @Override
     public String toString() {
-        return "CustomPlate{" +
-                "customerName='" + customerName + '\'' +
-                ", size=" + size +
-                ", selectedFood=" + selectedFood +
-                ", pineappleBowl=" + pineappleBowl +
-                ", pineappleBowlPrice=" + pineappleBowlPrice +
-                '}';
+        return "|" + size.name() +
+                "|" + (pineappleBowl ? "Yes" : "No") +
+                "|" + selectedFood.stream()
+                .map(Food::getItemName)
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("None") +
+                "|Total: $" + String.format("%.2f", getPrice());
     }
 }

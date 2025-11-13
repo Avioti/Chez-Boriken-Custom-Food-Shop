@@ -1,5 +1,6 @@
 package com.pluralsight.utility;
 
+import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.inventory.Drink;
 import com.pluralsight.inventory.Food;
 import com.pluralsight.inventory.Main;
@@ -80,7 +81,7 @@ public abstract class InventoryLoader {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            System.out.println("Stock updated for " + item.getItemName() + ". New quantity: " + item.getQuantity());
+            System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, "\n\tStock updated for ",ConsoleColors.RESET, ConsoleColors.BOLD, item.getItemName(), ConsoleColors.RED, ". New quantity: " , ConsoleColors.RESET, item.getQuantity());
         }
 
     }

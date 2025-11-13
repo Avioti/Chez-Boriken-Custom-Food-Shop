@@ -3,16 +3,18 @@ package com.pluralsight.ui;
 import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.PlateOptions;
 import com.pluralsight.constants.Size;
+import com.pluralsight.inventory.Drink;
 import com.pluralsight.inventory.Food;
+import com.pluralsight.inventory.Main;
+import com.pluralsight.inventory.Side;
 import com.pluralsight.order.Order;
 import com.pluralsight.products.CustomPlate;
 import com.pluralsight.utility.InputHandler;
 import com.pluralsight.utility.ReceiptManager;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
+
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -24,11 +26,11 @@ import static com.pluralsight.ui.AddItemScreen.*;
 public class OrderScreen {
     private static Order currentOrder;
     protected static Size size;
-    static protected ArrayList<Food> plate = new ArrayList<>();
+    static public ArrayList<Food> plate = new ArrayList<>();
     private static String customerName;
     private static boolean pineappleBowl;
     public static CustomPlate customPlate;
-    private static boolean running = true;
+    public static boolean running = true;
     public static final String dtf = "yyyyMMdd-HHmmss";
 
 
@@ -43,10 +45,13 @@ public class OrderScreen {
 
         showSizeMenu();
 
+
         while (running) {
             orderMenu();
 
             userOrderOptions();
+
+
         }
 
 
@@ -57,7 +62,7 @@ public class OrderScreen {
     }
 
     public static void askCustomerName() {
-        customerName = InputHandler.getStringInput("\nEnter your name: ");
+        customerName = InputHandler.getStringInput(String.format("%s%s%s%s%s%s", ConsoleColors.BLUE, "\nEnter " + ConsoleColors.RESET, ConsoleColors.BOLD, "Your " + ConsoleColors.RED, "Name: ", ConsoleColors.RESET));
     }
 
     public static void showSizeMenu() {
@@ -68,29 +73,34 @@ public class OrderScreen {
                 ConsoleColors.BLUE_BOLD, PlateOptions.sizeMedium, ConsoleColors.RED, PlateOptions.sizeMediumText, ConsoleColors.BLUE, PlateOptions.mediumSizes,
                 ConsoleColors.BLUE_BOLD, PlateOptions.sizeLarge, ConsoleColors.RED, PlateOptions.sizeLargeText, ConsoleColors.BLUE, PlateOptions.largeSizes, ConsoleColors.RESET);
 
-        size = InputHandler.getSizeInput("\nEnter Desired Size: ");
+        size = InputHandler.getSizeInput(PlateOptions.enterDesiredSize);
     }
 
     public static void orderMenu() {
 
-        System.out.println("\nWhat would you like today?");
-        final String menuFormat =
-                        "\n%s%d. - %s%s" +
-                        "\n%s%d. - %s%s" +
-                        "\n%s%d. - %s%s" +
-                        "\n%s%d. - %s%s" +
-                        "\n%s%d. - %s%s%s%n";
-        System.out.printf(menuFormat,
+        System.out.printf("\n%s%s%s%s%s%s%s%s%s\n",PlateOptions.equals,ConsoleColors.BLUE,PlateOptions.whatWould,ConsoleColors.RESET,PlateOptions.you,ConsoleColors.RED
+                ,PlateOptions.likeToday,ConsoleColors.RESET,PlateOptions.equals);
+
+        System.out.printf("\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s%s%n",
                 ConsoleColors.BLUE, PlateOptions.addMain, ConsoleColors.RED, PlateOptions.addMainText,
                 ConsoleColors.BLUE, PlateOptions.addSide, ConsoleColors.RED, PlateOptions.addSideText,
                 ConsoleColors.BLUE, PlateOptions.addDrink, ConsoleColors.RED, PlateOptions.addDrinkText,
+                ConsoleColors.BLUE, PlateOptions.changeSize, ConsoleColors.RED, PlateOptions.changeSizeText,
                 ConsoleColors.BLUE, PlateOptions.checkOut, ConsoleColors.RED, PlateOptions.checkOutText,
                 ConsoleColors.BLUE, PlateOptions.cancelOrder, ConsoleColors.RED, PlateOptions.cancelOrderText,
                 ConsoleColors.RESET);
     }
 
     public static void pineappleQuestion() {
-        String pineappleChoice = InputHandler.getStringInput("\nWould you like to plate your food in a Pineapple for an additional $2.50 (yes/no): ").toLowerCase();
+        if(pineappleBowl) {
+            return;
+        }
+        String pineappleChoice = InputHandler.getStringInput(PlateOptions.pineappleQuestion).toLowerCase();
 
         pineappleBowl = pineappleChoice.equals("yes") || pineappleChoice.equals("y");
     }
@@ -107,17 +117,16 @@ public class OrderScreen {
     }
 
 
-
     public static void createCustomPlate() {
         customPlate = new CustomPlate(pineappleBowl, plate, size, customerName);
         currentOrder = new Order(randomId(), ZonedDateTime.now(), customPlate, customPlate.getPrice());
-        System.out.println("\nYour custom plate has been created and added to your order!");
+        System.out.printf("%s%s%s\n", ConsoleColors.GREEN_BOLD, PlateOptions.customPlateCreated, ConsoleColors.RESET);
     }
 
 
-    public static void cartCheck(){
-        if(selectedMains.isEmpty() && selectedSides.isEmpty() && selectedDrinks.isEmpty()){
-            System.out.println("\nYou must add at least one Side or Drink to your plate before proceeding to checkout.");
+    public static void cartCheck() {
+        if (selectedMains.isEmpty() && selectedSides.isEmpty() && selectedDrinks.isEmpty()) {
+            System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.mustAddItem, ConsoleColors.RESET);
             orderMenu();
             userOrderOptions();
         }
@@ -128,28 +137,27 @@ public class OrderScreen {
         cartCheck();
         createCustomPlate();
         CheckoutScreen.showSummary(currentOrder);
-        System.out.println("\nProceeding to checkout...");
+        System.out.printf("\t%s%s%s\n", ConsoleColors.BLUE_BOLD, PlateOptions.proceedingToCheckout, ConsoleColors.RESET);
         if (CheckoutScreen.confirmOrder()) {
             System.out.println(ReceiptManager.createReceipt(currentOrder));
             CheckoutScreen.addAnotherOrder();
         } else {
-            orderMenu();
-            userOrderOptions();
+            cancelOrder();
         }
     }
 
     public static void cancelOrder() {
-        if (InputHandler.getYesOrNoInput("\nAre you sure you want to cancel your order? ")) {
+        if (InputHandler.getYesOrNoInput(PlateOptions.areYouSure)) {
             plate.clear();
             selectedMains.clear();
             selectedDrinks.clear();
             selectedSides.clear();
             running = false;
-            System.out.println("\nYour order has been cancelled. Returning to Home Screen...");
+            System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.orderCancelled, ConsoleColors.RESET);
 
             WelcomeScreen.run();
         } else {
-            System.out.println("\nReturning to Order Menu...");
+            System.out.printf("%s%s%s\n", ConsoleColors.BLUE_BOLD, PlateOptions.returningToOrderMenu, ConsoleColors.RESET);
             orderMenu();
             userOrderOptions();
         }
@@ -157,14 +165,18 @@ public class OrderScreen {
     }
 
     public static void getPlateItems() {
-        System.out.println("\nCurrent items on your plate: " + customPlate.getSize());
-        plate.forEach(item -> System.out.println("- " + item.getItemName()));
+        System.out.printf("%s%s%s%s%s\n", ConsoleColors.BOLD, PlateOptions.currentItemsOnPlate, ConsoleColors.RED, customPlate.getSize(), ConsoleColors.RESET);
+        plate.forEach(item -> {
+            String count = item instanceof Main ? String.valueOf(selectedMains.size()) :  item instanceof Side ? String.valueOf(selectedSides.size())
+                    : item instanceof Drink ? String.valueOf(selectedDrinks.size()) : "0";
+            System.out.printf("\n\t%s-%s %s%s %s\n", ConsoleColors.BLUE, ConsoleColors.RED, item.getItemName(), ConsoleColors.RESET, count);
+        });
 
     }
 
     public static void userOrderOptions() {
         InputHandler.emptyLine();
-        int choice = InputHandler.getUserIntInput("Enter a number Option: ");
+        int choice = InputHandler.getUserIntInput(PlateOptions.enterNumberOption);
 
         switch (choice) {
             case PlateOptions.addMain:
@@ -176,6 +188,9 @@ public class OrderScreen {
             case PlateOptions.addDrink:
                 addDrink();
                 break;
+            case PlateOptions.changeSize:
+                showSizeMenu();
+                break;
             case PlateOptions.checkOut:
                 checkOut();
                 break;
@@ -183,7 +198,7 @@ public class OrderScreen {
                 cancelOrder();
                 break;
             default:
-                System.out.println("Invalid option. Please try again.");
+                System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.invalidOption, ConsoleColors.RESET);
                 break;
         }
 

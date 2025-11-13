@@ -26,7 +26,7 @@ public class MenuOptions {
     public static final String viewReceiptsText = " View Receipts";
     public static final String exitText = " Exit Application";
     public static final String invalidOptionText = " Invalid option. Please try again.";
-    public static final String pleaseEnterText = "\t\t        Press Enter to Order...";
+    public static final String pleaseEnterText = String.format("%s%s","\t\t        Press Enter to Order...",ConsoleColors.RESET);
 
     private MenuOptions() {
         throw new AssertionError("Cannot instantiate constants class");

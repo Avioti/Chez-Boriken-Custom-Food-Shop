@@ -34,13 +34,10 @@ public class WelcomeScreen {
 
 
     private static void showWelcomePrompt() {
-        System.out.println("\t\t\t   Welcome to Chez Boriken!");
+        System.out.printf("%s%s%s%s%s%s\n", ConsoleColors.BLUE, "\t\t\t   Welcome to ", ConsoleColors.RESET, ConsoleColors.BOLD, "Chez Boriken!", ConsoleColors.RED_BOLD);
         waitForEnter(pleaseEnterText);
     }
 
-    private void viewReceipts() {
-
-    }
 
     public static void mainLoop() {
         while (running) {
