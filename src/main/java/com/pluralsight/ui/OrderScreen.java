@@ -9,6 +9,7 @@ import com.pluralsight.inventory.Main;
 import com.pluralsight.inventory.Side;
 import com.pluralsight.order.Order;
 import com.pluralsight.products.CustomPlate;
+import com.pluralsight.products.Entree;
 import com.pluralsight.utility.InputHandler;
 import com.pluralsight.utility.ReceiptManager;
 
@@ -22,6 +23,7 @@ import java.util.stream.IntStream;
 
 import static com.pluralsight.products.CustomPlate.*;
 import static com.pluralsight.ui.AddItemScreen.*;
+import static com.pluralsight.ui.EntreeScreens.currentEntreeOrder;
 
 public class OrderScreen {
     private static Order currentOrder;
@@ -124,6 +126,7 @@ public class OrderScreen {
     }
 
 
+
     public static void cartCheck() {
         if (selectedMains.isEmpty() && selectedSides.isEmpty() && selectedDrinks.isEmpty()) {
             System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.mustAddItem, ConsoleColors.RESET);
@@ -155,7 +158,7 @@ public class OrderScreen {
             running = false;
             System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.orderCancelled, ConsoleColors.RESET);
 
-            WelcomeScreen.run();
+            InputHandler.exit();
         } else {
             System.out.printf("%s%s%s\n", ConsoleColors.BLUE_BOLD, PlateOptions.returningToOrderMenu, ConsoleColors.RESET);
             orderMenu();

@@ -15,15 +15,7 @@ public class HomeScreen {
     private static final String comingSoonText = "Feature coming soon!";
 
 
-    public static void showEntrees() {
-        System.out.printf("%s%s%s",ConsoleColors.BLUE,"\nFeatured Entrees\n",ConsoleColors.RESET);
-        InputHandler.emptyLine();
-        for (Entree entree : featuredEntrees) {
-            final String menuFormat = "\t%s%d%s - %s: - Price: $%.2f\t%s";
 
-            System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, entree.getId(), ConsoleColors.RED, entree.getDisplayName(), entree.getPrice(), ConsoleColors.RESET);
-        }
-    }
 
     public static void showMenuChoices() {
         InputHandler.emptyLine();
@@ -45,7 +37,7 @@ public class HomeScreen {
                 OrderScreen.customOrderScreen();
                 break;
             case MenuOptions.orderEntree:
-                comingSoon();
+                EntreeScreens.initializeEntreeScreen();
                 break;
             case MenuOptions.viewReceipts:
                 ReceiptManager.displayReceipts();

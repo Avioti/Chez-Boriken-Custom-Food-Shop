@@ -44,6 +44,16 @@ public class PlateOptions {
     public static final String entreeOption1Text = featuredEntrees.get(0).getDisplayName();
     public static final String entreeOption2Text = featuredEntrees.get(1).getDisplayName();
     public static final String entreeOption3Text = featuredEntrees.get(2).getDisplayName();
+    public static final int entreeOption1 = featuredEntrees.get(0).getId();
+    public static final int entreeOption2 = featuredEntrees.get(1).getId();
+    public static final int entreeOption3 = featuredEntrees.get(2).getId();
+    public static final int orderEntree = 1;
+    public static final String orderEntreeText = " Choose Entree";
+    public static final int editEntree = 2;
+    public static final String editEntreeText = " Edit Entree";
+    public static final int entreeMenuExit = 0;
+    public static final String entreeMenuExitText = " Return to Home Screen";
+    public static final String currentEntreeItems = "\nCurrent items in your entree: ";
 
     //Order Menu Prompts
     public static final String whatWouldYouLike = "\nWhat would you like today?";

@@ -43,7 +43,7 @@ public class WelcomeScreen {
         while (running) {
             InputHandler.clearScreen();
             showTitle();
-            HomeScreen.showEntrees();
+            EntreeScreens.showEntrees();
             HomeScreen.showMenuChoices();
             HomeScreen.userHomeOptions();
 

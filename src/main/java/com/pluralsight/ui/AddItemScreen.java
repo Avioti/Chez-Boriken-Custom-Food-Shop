@@ -102,7 +102,7 @@ public class AddItemScreen extends OrderScreen {
         int sideCount = selectedSides.size();
         int drinkCount = selectedDrinks.size();
 
-        if (mainCount <= size.getMainLimit()) {
+        if (mainCount < size.getMainLimit()) {
             orderMenu();
             userOrderOptions();
         } else {
@@ -113,7 +113,7 @@ public class AddItemScreen extends OrderScreen {
             checkOut();
         }
 
-        if (sideCount <= size.getSideLimit()) {
+        if (sideCount < size.getSideLimit()) {
             orderMenu();
             userOrderOptions();
         } else {
@@ -124,7 +124,7 @@ public class AddItemScreen extends OrderScreen {
             checkOut();
         }
 
-        if (drinkCount <= size.getDrinkLimit()) {
+        if (drinkCount < size.getDrinkLimit()) {
             orderMenu();
             userOrderOptions();
         } else {

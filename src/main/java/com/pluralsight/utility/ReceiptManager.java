@@ -30,7 +30,7 @@ public class ReceiptManager {
 
             if(order.getPlate() != null && order.getPlate() instanceof CustomPlate plate){
                 receiptContent = order.getId() + "|" + plate.getDisplayName() + "|" +  order.getTotalPrice() + order.getPlate();
-            } else if (order.getEntree() != null && order.getPlate() instanceof Entree entree) {
+            } else if (order.getPlate() != null && order.getPlate() instanceof Entree entree) {
                 receiptContent = order.getId() + "|" + entree.getDisplayName() + "|" +  order.getTotalPrice() + order.getPlate();
             }
 

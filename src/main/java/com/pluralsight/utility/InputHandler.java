@@ -3,6 +3,7 @@ package com.pluralsight.utility;
 import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.Size;
 import com.pluralsight.inventory.Food;
+import com.pluralsight.ui.EntreeScreens;
 import com.pluralsight.ui.HomeScreen;
 import com.pluralsight.ui.WelcomeScreen;
 
@@ -91,9 +92,14 @@ public class InputHandler {
         waitForEnter(RETURN_TO_MENU_MESSAGE);
         clearScreen();
         WelcomeScreen.showTitle();
-        HomeScreen.showEntrees();
+        EntreeScreens.showEntrees();
         HomeScreen.showMenuChoices();
         HomeScreen.userHomeOptions();
+    }
+
+    public static void waitForEnterEntree() {
+        waitForEnter(RETURN_TO_MENU_MESSAGE);
+        clearScreen();
     }
 
 

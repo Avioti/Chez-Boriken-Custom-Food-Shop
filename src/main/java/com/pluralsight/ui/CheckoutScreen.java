@@ -3,16 +3,23 @@ package com.pluralsight.ui;
 import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.PlateOptions;
 import com.pluralsight.order.Order;
+import com.pluralsight.products.Entree;
 import com.pluralsight.utility.InputHandler;
 
 import static com.pluralsight.ui.AddItemScreen.*;
+import static com.pluralsight.ui.EntreeScreens.getEntreeItems;
 
 
 public class CheckoutScreen extends OrderScreen {
 
     public static void showSummary(Order order) {
         System.out.printf("\n\t%s%s%s%s%s%s%s%n", PlateOptions.equals, ConsoleColors.BLUE, PlateOptions.order, ConsoleColors.RED, PlateOptions.summary, ConsoleColors.RESET, PlateOptions.equals);
-        getPlateItems();
+        if(order.getPlate() instanceof Entree entree){
+            getEntreeItems();
+        } else{
+            getPlateItems();
+        }
+
         System.out.printf("%s%s%s$%.2f%s\n", ConsoleColors.BLUE, "\nTotal Price: ", ConsoleColors.RED, order.getTotalPrice(), ConsoleColors.RESET);
 
     }
