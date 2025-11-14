@@ -26,14 +26,7 @@ public class ReceiptManager {
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFolder + order.getCreatedAt().format(DATE_FORMAT)+".txt"));
 
-            String receiptContent = "";
-
-            if(order.getPlate() != null && order.getPlate() instanceof CustomPlate plate){
-                receiptContent = order.getId() + "|" + plate.getDisplayName() + "|" +  order.getPlate();
-            } else if (order.getPlate() != null && order.getPlate() instanceof Entree entree) {
-                receiptContent = order.getId() + "|" + entree.getDisplayName() + "|" + "|" + entree.getMain().getItemName() + "|" +
-                        entree.getSide().getItemName() + "|" + entree.getDrink().getItemName() + "|" + entree.getDescription();
-            }
+            String receiptContent = getString(order);
 
             writer.write(receiptContent);
             writer.flush();
@@ -46,6 +39,18 @@ public class ReceiptManager {
         return String.format("\n\t%s%s%s%s%s%s%s%s%s%s%s%s%s", ConsoleColors.BLUE, "Receipt for order #",
                 ConsoleColors.RED, order.getId(), ConsoleColors.BLUE, "|",ConsoleColors.RESET, ConsoleColors.BOLD,
                 order.getTotalPrice(), ConsoleColors.BLUE, "|", order.getCreatedAt().format(DATE_FORMAT), ConsoleColors.RESET);
+    }
+
+    private static String getString(Order order) {
+        String receiptContent = "";
+
+        if(order.getPlate() != null && order.getPlate() instanceof CustomPlate plate){
+            receiptContent = order.getId() + "|" + plate.getDisplayName() + "|" +  order.getPlate();
+        } else if (order.getPlate() != null && order.getPlate() instanceof Entree entree) {
+            receiptContent = order.getId() + "|" + entree.getDisplayName() + "|" + "|" + entree.getMain().getItemName() + "|" +
+                    entree.getSide().getItemName() + "|" + entree.getDrink().getItemName() + "|" + entree.getDescription();
+        }
+        return receiptContent;
     }
 
 
