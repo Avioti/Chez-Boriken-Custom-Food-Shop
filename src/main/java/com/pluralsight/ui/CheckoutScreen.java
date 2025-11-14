@@ -17,6 +17,7 @@ public class CheckoutScreen extends OrderScreen {
             System.out.println(ConsoleColors.RED + "\nNo items in the order to display summary." + ConsoleColors.RESET);
             return;
         }
+        InputHandler.clearScreen();
         System.out.printf("\n\t%s%s%s%s%s%s%s%n", PlateOptions.equals, ConsoleColors.BLUE, PlateOptions.order, ConsoleColors.RED, PlateOptions.summary, ConsoleColors.RESET, PlateOptions.equals);
         if(order.getPlate() instanceof Entree entree){
             getEntreeItems();
@@ -29,7 +30,9 @@ public class CheckoutScreen extends OrderScreen {
     }
 
     public static boolean confirmOrder() {
+
         if (InputHandler.getYesOrNoInput(String.format("%s%s%s%s%s%s%s%s",ConsoleColors.BLUE,"\nWould you li",ConsoleColors.RESET,ConsoleColors.BOLD, "ke to conf",ConsoleColors.RED, "irm your order? ", ConsoleColors.RESET))) {
+            InputHandler.clearScreen();
             System.out.printf("%s%s%s%s%s\n", ConsoleColors.BOLD, "\nOrder confirmed! ", ConsoleColors.BLUE, "Enjoy your Meal!", ConsoleColors.RESET);
             return true;
         }

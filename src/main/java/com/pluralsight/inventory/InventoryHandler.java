@@ -51,6 +51,10 @@ public class InventoryHandler extends InventoryLoader {
                 .orElse(null);
     }
 
+    public static int getStockQuantity(Food food) {
+        return food.getQuantity();
+    }
+
     public static double addItemsTogether(Food item1, Food item2, Food item3) {
         return item1.getBasePrice() + item2.getBasePrice() + item3.getBasePrice();
     }

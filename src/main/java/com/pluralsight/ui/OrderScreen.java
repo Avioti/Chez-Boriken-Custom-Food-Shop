@@ -130,8 +130,7 @@ public class OrderScreen {
     public static void cartCheck() {
         if (selectedMains.isEmpty() && selectedSides.isEmpty() && selectedDrinks.isEmpty()) {
             System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.mustAddItem, ConsoleColors.RESET);
-            orderMenu();
-            userOrderOptions();
+
         }
     }
 
@@ -161,8 +160,7 @@ public class OrderScreen {
             InputHandler.exit();
         } else {
             System.out.printf("%s%s%s\n", ConsoleColors.BLUE_BOLD, PlateOptions.returningToOrderMenu, ConsoleColors.RESET);
-            orderMenu();
-            userOrderOptions();
+
         }
 
     }

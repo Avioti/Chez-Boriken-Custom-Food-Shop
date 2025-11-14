@@ -6,6 +6,7 @@ import com.pluralsight.constants.PlateOptions;
 import com.pluralsight.inventory.*;
 import com.pluralsight.utility.InputHandler;
 
+import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,6 @@ public class AddItemScreen extends OrderScreen {
     public static List<Food> selectedDrinks = new ArrayList<>();
 
 
-
     public static int getSizeInputInt(Food food) {
         System.out.printf("%s%s%s%s%s%s%s%s ", ConsoleColors.BLUE, PlateOptions.enterQuantityPart1, ConsoleColors.RESET,
                 ConsoleColors.BOLD, PlateOptions.enterQuantityPart2,
@@ -29,10 +29,9 @@ public class AddItemScreen extends OrderScreen {
 
         int limit = getLimit(food);
 
-        if(currentSize + 1 > limit){
+        if (currentSize + 1 > limit) {
             return 0;
         }
-
 
         if (userInput < limit && userInput < currentSize + 1) {
             return userInput;
@@ -42,8 +41,8 @@ public class AddItemScreen extends OrderScreen {
         }
     }
 
-    public static int getSize(Food food){
-        return  food instanceof Main ? selectedMains.size() :
+    public static int getSize(Food food) {
+        return food instanceof Main ? selectedMains.size() :
                 food instanceof Side ? selectedSides.size() :
                         food instanceof Drink ? selectedDrinks.size() : 0;
     }
@@ -84,6 +83,7 @@ public class AddItemScreen extends OrderScreen {
 
         } catch (Exception e) {
             System.out.printf("%s%s%s\n", ConsoleColors.RED, PlateOptions.invalidOption, ConsoleColors.RESET);
+            e.printStackTrace();
         }
         plate.add(food);
         if (food instanceof Main main) {
@@ -111,16 +111,6 @@ public class AddItemScreen extends OrderScreen {
                     ConsoleColors.BOLD, PlateOptions.maxPortionPart2,
                     ConsoleColors.RED, type,
                     ConsoleColors.BOLD, PlateOptions.maxPortionPart3, ConsoleColors.RESET);
-            checkOut();
-        }
-    }
-
-    private static void promptAddMore() {
-        System.out.println("\nWould you like to add more items to your plate?");
-        if (InputHandler.getYesOrNoInput(String.format("%s%s%s", ConsoleColors.BLUE, PlateOptions.enterYesOrNo, ConsoleColors.RESET))) {
-            addFoodItem(promptAddExtra());
-        } else {
-            System.out.println("\nGoing to Checkout...");
             checkOut();
         }
     }

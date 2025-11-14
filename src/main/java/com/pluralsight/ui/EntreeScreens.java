@@ -4,6 +4,7 @@ import com.pluralsight.constants.ConsoleColors;
 import com.pluralsight.constants.PlateOptions;
 import com.pluralsight.inventory.Food;
 import com.pluralsight.inventory.InventoryHandler;
+import com.pluralsight.inventory.Main;
 import com.pluralsight.order.Order;
 import com.pluralsight.products.Entree;
 import com.pluralsight.utility.InputHandler;
@@ -48,7 +49,10 @@ public class EntreeScreens {
         InputHandler.emptyLine();
         for (Entree entree : featuredEntrees) {
             final String menuFormat = "\t%s%d%s - %s: - Price: $%.2f\t%s";
-
+            if(entree.getMain().getQuantity() <=0 || entree.getSide().getQuantity() <=0 || entree.getDrink().getQuantity() <=0){
+                System.out.printf("\t%s%d%s - %s: - %s%s\t", ConsoleColors.BLUE_BOLD, entree.getId(), ConsoleColors.RED, entree.getDisplayName(), ConsoleColors.RED_BOLD, "Out of Stock"+ConsoleColors.RESET);
+                continue;
+            }
             System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, entree.getId(), ConsoleColors.RED, entree.getDisplayName(), entree.getPrice(), ConsoleColors.RESET);
         }
     }
@@ -66,13 +70,7 @@ public class EntreeScreens {
         waitForEnterEntree();
     }
 
-    public static void editEntree() {
-        if (currentEntreeOrder == null) {
-            System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.noEntreeToEdit, ConsoleColors.RESET);
-            waitForEnterEntree();
-            return;
-        }
-
+    public static void entreeEditMenu(){
         System.out.printf("%s%s%s\n", ConsoleColors.BLUE, "\nWhat would you like to edit?", ConsoleColors.RESET);
 
         System.out.printf("\n\t%s%d. - %s%s" +
@@ -86,6 +84,16 @@ public class EntreeScreens {
                 ConsoleColors.BLUE, PlateOptions.changeSize, ConsoleColors.RED, "Change Size",
                 ConsoleColors.BLUE, PlateOptions.entreeMenuExit, ConsoleColors.RED, "Return to Entree Menu",
                 ConsoleColors.RESET);
+    }
+
+    public static void editEntree() {
+        if (currentEntreeOrder == null) {
+            System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.noEntreeToEdit, ConsoleColors.RESET);
+            waitForEnterEntree();
+            return;
+        }
+
+       entreeEditMenu();
 
         int choice = InputHandler.getUserIntInput(PlateOptions.enterNumberOption);
         switch (choice) {
