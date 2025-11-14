@@ -63,7 +63,7 @@ public abstract class InventoryLoader {
     public static void reduceStock(Food item, int quantity) {
         int currentStock = item.getQuantity();
         if (quantity > currentStock) {
-            System.out.println("Insufficient stock for " + item.getItemName());
+            System.out.printf("%s%s%s%s%s%s\n", ConsoleColors.RED_BOLD, "\nInsufficient stock for ", ConsoleColors.RESET, ConsoleColors.BOLD, item.getItemName(), ConsoleColors.RESET);
         } else {
             item.setQuantity(currentStock - quantity);
             try{
@@ -81,7 +81,7 @@ public abstract class InventoryLoader {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, "\n\tStock updated for ",ConsoleColors.RESET, ConsoleColors.BOLD, item.getItemName(), ConsoleColors.RED, ". New quantity: " , ConsoleColors.RESET, item.getQuantity());
+            System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, "\n\tStock for ",ConsoleColors.RESET, ConsoleColors.BOLD, item.getItemName(), ConsoleColors.RED, ".Quantity: " , ConsoleColors.RESET, item.getQuantity());
         }
 
     }

@@ -13,6 +13,10 @@ import static com.pluralsight.ui.EntreeScreens.getEntreeItems;
 public class CheckoutScreen extends OrderScreen {
 
     public static void showSummary(Order order) {
+        if(order.getPlate() == null){
+            System.out.println(ConsoleColors.RED + "\nNo items in the order to display summary." + ConsoleColors.RESET);
+            return;
+        }
         System.out.printf("\n\t%s%s%s%s%s%s%s%n", PlateOptions.equals, ConsoleColors.BLUE, PlateOptions.order, ConsoleColors.RED, PlateOptions.summary, ConsoleColors.RESET, PlateOptions.equals);
         if(order.getPlate() instanceof Entree entree){
             getEntreeItems();
@@ -31,6 +35,8 @@ public class CheckoutScreen extends OrderScreen {
         }
         return false;
     }
+
+
 
     public static void addAnotherOrder() {
         if (InputHandler.getYesOrNoInput(String.format("%s%s%s", ConsoleColors.BLUE, "\nWould you like to place another order? ", ConsoleColors.RESET))) {

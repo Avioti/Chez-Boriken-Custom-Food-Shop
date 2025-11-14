@@ -18,71 +18,72 @@ public class AddItemScreen extends OrderScreen {
     public static List<Food> selectedDrinks = new ArrayList<>();
 
 
+
     public static int getSizeInputInt(Food food) {
         System.out.printf("%s%s%s%s%s%s%s%s ", ConsoleColors.BLUE, PlateOptions.enterQuantityPart1, ConsoleColors.RESET,
                 ConsoleColors.BOLD, PlateOptions.enterQuantityPart2,
                 ConsoleColors.RED, PlateOptions.enterQuantityPart3, ConsoleColors.RESET);
         int userInput = InputHandler.getUserChoice();
 
+        int currentSize = getSize(food);
 
-        int limit = switch (food.getCategory().toLowerCase()) {
+        int limit = getLimit(food);
+
+        if(currentSize + 1 > limit){
+            return 0;
+        }
+
+
+        if (userInput < limit && userInput < currentSize + 1) {
+            return userInput;
+        } else {
+            System.out.println(ConsoleColors.RED + PlateOptions.invalidQuantity + ConsoleColors.RESET);
+            return 0;
+        }
+    }
+
+    public static int getSize(Food food){
+        return  food instanceof Main ? selectedMains.size() :
+                food instanceof Side ? selectedSides.size() :
+                        food instanceof Drink ? selectedDrinks.size() : 0;
+    }
+
+
+    private static int getLimit(Food food) {
+        return switch (food.getCategory().toLowerCase()) {
             case "main" -> size.getMainLimit();
             case "side" -> size.getSideLimit();
             case "drink" -> size.getDrinkLimit();
             default -> 0;
         };
-
-        if (userInput <= limit) {
-            return userInput;
-        } else {
-            System.out.printf("%s%s%s",ConsoleColors.RED,"\nAdding Default Maximum Quantity for Selected Size.\n",ConsoleColors.RESET);
-            return switch (food.getCategory().toLowerCase()) {
-                case "main" -> size.getMainLimit();
-                case "side" -> size.getSideLimit();
-                case "drink" -> size.getDrinkLimit();
-                default -> 0;
-            };
-        }
     }
 
-
+    private static String getTypeString(Food food) {
+        return food instanceof Main ? PlateOptions.mainType :
+                food instanceof Side ? PlateOptions.sideType :
+                        food instanceof Drink ? PlateOptions.drinkType : "";
+    }
 
     public static void addFoodItem(Food food) {
         try {
-            if (food == null || !food.isAvailable()) {
+            if (!food.isAvailable()) {
                 System.out.printf("%s%s%s\n", ConsoleColors.RED, PlateOptions.invalidOption, ConsoleColors.RESET);
                 return;
             }
 
-            if (food instanceof Main) {
-                if (selectedMains.size() >= size.getMainLimit()) {
-                    System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, PlateOptions.maxPortionPart1,
-                            ConsoleColors.BOLD, PlateOptions.maxPortionPart2,
-                            ConsoleColors.RED, PlateOptions.mainType,
-                            ConsoleColors.BOLD, PlateOptions.maxPortionPart3, ConsoleColors.RESET);
-                    return;
-                }
-            } else if (food instanceof Side) {
-                if (selectedSides.size() >= size.getSideLimit()) {
-                    System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, PlateOptions.maxPortionPart1,
-                            ConsoleColors.BOLD, PlateOptions.maxPortionPart2,
-                            ConsoleColors.RED, PlateOptions.sideType,
-                            ConsoleColors.BOLD, PlateOptions.maxPortionPart3, ConsoleColors.RESET);
-                    return;
-                }
-            } else if (food instanceof Drink) {
-                if (selectedDrinks.size() >= size.getDrinkLimit()) {
-                    System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, PlateOptions.maxPortionPart1,
-                            ConsoleColors.BOLD, PlateOptions.maxPortionPart2,
-                            ConsoleColors.RED, PlateOptions.drinkType,
-                            ConsoleColors.BOLD, PlateOptions.maxPortionPart3, ConsoleColors.RESET);
-                    return;
-                }
+            int currentSize = getSize(food);
+            int limit = getLimit(food);
+
+            if (currentSize + 1 > limit) {
+                System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, PlateOptions.maxPortionPart1,
+                        ConsoleColors.BOLD, PlateOptions.maxPortionPart2,
+                        ConsoleColors.RED, getTypeString(food),
+                        ConsoleColors.BOLD, PlateOptions.maxPortionPart3, ConsoleColors.RESET);
+                return;
             }
 
         } catch (Exception e) {
             System.out.printf("%s%s%s\n", ConsoleColors.RED, PlateOptions.invalidOption, ConsoleColors.RESET);
-
         }
         plate.add(food);
         if (food instanceof Main main) {
@@ -93,44 +94,22 @@ public class AddItemScreen extends OrderScreen {
             selectedDrinks.add(drink);
         }
         InventoryHandler.reduceStock(food, getSizeInputInt(food));
-
     }
 
-
     public static void addMoreItems() {
-        int mainCount = selectedMains.size();
-        int sideCount = selectedSides.size();
-        int drinkCount = selectedDrinks.size();
+        checkCategoryLimit(selectedMains.size(), size.getMainLimit(), PlateOptions.mainType);
+        checkCategoryLimit(selectedSides.size(), size.getSideLimit(), PlateOptions.sideType);
+        checkCategoryLimit(selectedDrinks.size(), size.getDrinkLimit(), PlateOptions.drinkType);
+    }
 
-        if (mainCount < size.getMainLimit()) {
+    private static void checkCategoryLimit(int currentCount, int limit, String type) {
+        if (currentCount < limit) {
             orderMenu();
             userOrderOptions();
         } else {
             System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, PlateOptions.maxPortionPart1,
                     ConsoleColors.BOLD, PlateOptions.maxPortionPart2,
-                    ConsoleColors.RED, PlateOptions.mainType,
-                    ConsoleColors.BOLD, PlateOptions.maxPortionPart3, ConsoleColors.RESET);
-            checkOut();
-        }
-
-        if (sideCount < size.getSideLimit()) {
-            orderMenu();
-            userOrderOptions();
-        } else {
-            System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, PlateOptions.maxPortionPart1,
-                    ConsoleColors.BOLD, PlateOptions.maxPortionPart2,
-                    ConsoleColors.RED, PlateOptions.sideType,
-                    ConsoleColors.BOLD, PlateOptions.maxPortionPart3, ConsoleColors.RESET);
-            checkOut();
-        }
-
-        if (drinkCount < size.getDrinkLimit()) {
-            orderMenu();
-            userOrderOptions();
-        } else {
-            System.out.printf("%s%s%s%s%s%s%s%s%s\n", ConsoleColors.BLUE, PlateOptions.maxPortionPart1,
-                    ConsoleColors.BOLD, PlateOptions.maxPortionPart2,
-                    ConsoleColors.RED, PlateOptions.drinkType,
+                    ConsoleColors.RED, type,
                     ConsoleColors.BOLD, PlateOptions.maxPortionPart3, ConsoleColors.RESET);
             checkOut();
         }

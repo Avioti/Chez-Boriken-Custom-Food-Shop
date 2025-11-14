@@ -34,6 +34,7 @@ public class PlateOptions {
     public static final String largeSizes = "(Mains: 3, Sides: 2, Drinks: 2)";
     public static final String sizeMediumText = " Medium";
     public static final String sizeLargeText = " Large";
+    public static final String invalidQuantity = "\nInvalid quantity. Please enter within the Plate Limits.";
 
     // Pineapple Plate Option
     public static final String pineappleQuestion = String.format("%s%s%s%s%s%s%s%s%s", ConsoleColors.BLUE, "\nWould you like to plate your food in a ", ConsoleColors.RESET, ConsoleColors.BOLD, "Pineapple", ConsoleColors.RED_BOLD, " for an additional $2.50 ", ConsoleColors.RESET, "(yes/no): ");
@@ -54,6 +55,9 @@ public class PlateOptions {
     public static final int entreeMenuExit = 0;
     public static final String entreeMenuExitText = " Return to Home Screen";
     public static final String currentEntreeItems = "\nCurrent items in your entree: ";
+    public static final String noEntreeToEdit = "\nThere is no entree to edit. Please order an entree first.";
+    public static final int entreeCheckout = 3;
+    public static final String noEntreeToCheckout = "\nThere is no entree to check out. Please order an entree first.";
 
     //Order Menu Prompts
     public static final String whatWouldYouLike = "\nWhat would you like today?";
@@ -66,7 +70,7 @@ public class PlateOptions {
     public static final String enterNumberOption = String.format("%s%s%s%s%s%s",ConsoleColors.BLUE,"\nEnter " +ConsoleColors.RESET, ConsoleColors.BOLD,"a number " + ConsoleColors.RED,"Option: ",ConsoleColors.RESET);
     public static final String customPlateCreated = "\nYour plate has been created and added to your order!";
     public static final String proceedingToCheckout = "\n\tProceeding to checkout...";
-    public static final String orderCancelled = "\nYour order has been cancelled. Returning to Home Screen...";
+    public static final String orderCancelled = "\nYour order has been cancelled.";
     public static final String returningToOrderMenu = "\nReturning to Order Menu...";
     public static final String mustAddItem = "\nYou must add at least one Side or Drink to your plate before proceeding to checkout.";
     public static final String areYouSure = "\nAre you sure you want to cancel your order? ";

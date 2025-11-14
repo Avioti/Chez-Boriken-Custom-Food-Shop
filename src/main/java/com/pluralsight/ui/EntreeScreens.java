@@ -39,8 +39,7 @@ public class EntreeScreens {
 
         System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, PlateOptions.orderEntree, ConsoleColors.RED, PlateOptions.orderEntreeText, ConsoleColors.RESET);
         System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, PlateOptions.editEntree, ConsoleColors.RED, PlateOptions.editEntreeText, ConsoleColors.RESET);
-        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, PlateOptions.changeSize, ConsoleColors.RED, PlateOptions.changeSizeText, ConsoleColors.RESET);
-        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, PlateOptions.checkOut, ConsoleColors.RED, PlateOptions.checkOutText, ConsoleColors.RESET);
+        System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, PlateOptions.entreeCheckout, ConsoleColors.RED, PlateOptions.checkOutText, ConsoleColors.RESET);
         System.out.printf(menuFormat, ConsoleColors.BLUE_BOLD, PlateOptions.cancelOrder, ConsoleColors.RED, PlateOptions.cancelOrderText, ConsoleColors.RESET);
     }
 
@@ -68,14 +67,27 @@ public class EntreeScreens {
     }
 
     public static void editEntree() {
-        System.out.println("Edit entree Main");
-        System.out.println("What would you like to edit?");
-        System.out.println("1. Change Main");
-        System.out.println("2. Change Side");
-        System.out.println("3. Change Drink");
-        System.out.println("4. Change Size");
-        System.out.println("0. Return to Entree Menu");
-        int choice = InputHandler.getUserIntInput("Enter your choice: ");
+        if (currentEntreeOrder == null) {
+            System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.noEntreeToEdit, ConsoleColors.RESET);
+            waitForEnterEntree();
+            return;
+        }
+
+        System.out.printf("%s%s%s\n", ConsoleColors.BLUE, "\nWhat would you like to edit?", ConsoleColors.RESET);
+
+        System.out.printf("\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s" +
+                        "\n\t%s%d. - %s%s%s%n",
+                ConsoleColors.BLUE, PlateOptions.addMain, ConsoleColors.RED, "Change Main",
+                ConsoleColors.BLUE, PlateOptions.addSide, ConsoleColors.RED, "Change Side",
+                ConsoleColors.BLUE, PlateOptions.addDrink, ConsoleColors.RED, "Change Drink",
+                ConsoleColors.BLUE, PlateOptions.changeSize, ConsoleColors.RED, "Change Size",
+                ConsoleColors.BLUE, PlateOptions.entreeMenuExit, ConsoleColors.RED, "Return to Entree Menu",
+                ConsoleColors.RESET);
+
+        int choice = InputHandler.getUserIntInput(PlateOptions.enterNumberOption);
         switch (choice) {
             case 1:
                 changeEntreeMain();
@@ -92,49 +104,42 @@ public class EntreeScreens {
             case 0:
                 return;
             default:
-                System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.invalidOption, ConsoleColors.RESET);
+                System.out.printf("\n%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.invalidOption, ConsoleColors.RESET);
                 break;
         }
     }
 
     public static void changeEntreeMain(){
-        System.out.println("Change Entree Main?" + entree.getMain());
-        System.out.println("Select a new Main:");
+        System.out.printf("\n%s%s%s%s%s%s\n", ConsoleColors.BLUE, "Change Entree Main: ", ConsoleColors.RESET, ConsoleColors.RED, entree.getMain().getItemName(), ConsoleColors.RESET);
+        System.out.printf("\n%s%s%s\n", ConsoleColors.BLUE, "Select a new Main\n", ConsoleColors.RESET);
         InventoryHandler.getItemsByCategory("main");
         Food food = AddItemScreen.promptSelectMain();
-        System.out.println("Item updated with " + food.getItemName());
+        System.out.printf("\n%s%s%s%s%s%s\n", ConsoleColors.GREEN_BOLD, "Item updated with ", ConsoleColors.RESET, ConsoleColors.RED, food.getItemName(), ConsoleColors.RESET);
         entree.setMain(food);
         InventoryHandler.reduceStock(food,1);
         waitForEnterEntree();
-
-
     }
 
     public static void changeEntreeSide(){
-        System.out.println("Change Entree Side?" + entree.getSide());
-        System.out.println("Select a new Side:");
+        System.out.printf("\n%s%s%s%s%s%s\n", ConsoleColors.BLUE, "Change Entree Side: ", ConsoleColors.RESET, ConsoleColors.RED, entree.getSide().getItemName(), ConsoleColors.RESET);
+        System.out.printf("\n%s%s%s\n", ConsoleColors.BLUE, "Select a new Side\n", ConsoleColors.RESET);
         InventoryHandler.getItemsByCategory("side");
         Food food = AddItemScreen.promptSelectSide();
-        System.out.println("Item updated with " + food.getItemName());
+        System.out.printf("\n%s%s%s%s%s%s\n", ConsoleColors.GREEN_BOLD, "Item updated with ", ConsoleColors.RESET, ConsoleColors.RED, food.getItemName(), ConsoleColors.RESET);
         entree.setSide(food);
         InventoryHandler.reduceStock(food,1);
         waitForEnterEntree();
-
-
     }
 
-
     public static void changeEntreeDrink(){
-        System.out.println("Change Entree Drink?" + entree.getDrink());
-        System.out.println("Select a new Drink:");
+        System.out.printf("\n%s%s%s%s%s%s\n", ConsoleColors.BLUE, "Change Entree Drink: ", ConsoleColors.RESET, ConsoleColors.RED, entree.getDrink().getItemName(), ConsoleColors.RESET);
+        System.out.printf("\n%s%s%s\n", ConsoleColors.BLUE, "Select a new Drink\n", ConsoleColors.RESET);
         InventoryHandler.getItemsByCategory("drink");
         Food food = AddItemScreen.promptSelectDrink();
-        System.out.println("Item updated with " + food.getItemName());
+        System.out.printf("\n%s%s%s%s%s%s\n", ConsoleColors.GREEN_BOLD, "Item updated with ", ConsoleColors.RESET, ConsoleColors.RED, food.getItemName(), ConsoleColors.RESET);
         entree.setDrink(food);
         InventoryHandler.reduceStock(food,1);
         waitForEnterEntree();
-
-
     }
 
     public static void getEntreeItems(){
@@ -145,6 +150,11 @@ public class EntreeScreens {
     }
 
     private static void checkOutEntree() {
+     if (currentEntreeOrder == null) {
+         System.out.printf("%s%s%s\n", ConsoleColors.RED_BOLD, PlateOptions.noEntreeToCheckout, ConsoleColors.RESET);
+         waitForEnterEntree();
+         return;
+     }
         CheckoutScreen.showSummary(currentEntreeOrder);
         System.out.printf("\t%s%s%s\n", ConsoleColors.BLUE_BOLD, PlateOptions.proceedingToCheckout, ConsoleColors.RESET);
         if (CheckoutScreen.confirmOrder()) {
@@ -162,12 +172,12 @@ public class EntreeScreens {
 
         switch (choice) {
             case PlateOptions.orderEntree:
-                orderEntree(InputHandler.getUserIntInput("Choose Entree by ID: ") - 1);
+                orderEntree(InputHandler.getUserIntInput(String.format("\n%s%s%s%s%s%s ", ConsoleColors.BLUE, "Choose Entree by ", ConsoleColors.RESET, ConsoleColors.BOLD, "ID:", ConsoleColors.RED)) - 1);
                 break;
               case PlateOptions.editEntree:
                 editEntree();
                 break;
-            case PlateOptions.checkOut:
+            case PlateOptions.entreeCheckout:
                 checkOutEntree();
                 break;
             case PlateOptions.cancelOrder:
