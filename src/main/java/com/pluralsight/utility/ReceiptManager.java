@@ -29,9 +29,10 @@ public class ReceiptManager {
             String receiptContent = "";
 
             if(order.getPlate() != null && order.getPlate() instanceof CustomPlate plate){
-                receiptContent = order.getId() + "|" + plate.getDisplayName() + "|" +  order.getTotalPrice() + order.getPlate();
+                receiptContent = order.getId() + "|" + plate.getDisplayName() + "|" +  order.getPlate();
             } else if (order.getPlate() != null && order.getPlate() instanceof Entree entree) {
-                receiptContent = order.getId() + "|" + entree.getDisplayName() + "|" +  order.getTotalPrice() + order.getPlate();
+                receiptContent = order.getId() + "|" + entree.getDisplayName() + "|" + "|" + entree.getMain().getItemName() + "|" +
+                        entree.getSide().getItemName() + "|" + entree.getDrink().getItemName() + "|" + entree.getDescription();
             }
 
             writer.write(receiptContent);
@@ -42,7 +43,9 @@ public class ReceiptManager {
 
 
 
-        return String.format("\n\t%s%s%s%s%s%s%s%s%s%s%s%s%s", ConsoleColors.BLUE, "Receipt for order #", ConsoleColors.RED, order.getId(), ConsoleColors.BLUE, "|",ConsoleColors.RESET, ConsoleColors.BOLD, order.getTotalPrice(), ConsoleColors.BLUE, "|", order.getCreatedAt().format(DATE_FORMAT), ConsoleColors.RESET);
+        return String.format("\n\t%s%s%s%s%s%s%s%s%s%s%s%s%s", ConsoleColors.BLUE, "Receipt for order #",
+                ConsoleColors.RED, order.getId(), ConsoleColors.BLUE, "|",ConsoleColors.RESET, ConsoleColors.BOLD,
+                order.getTotalPrice(), ConsoleColors.BLUE, "|", order.getCreatedAt().format(DATE_FORMAT), ConsoleColors.RESET);
     }
 
 
@@ -56,14 +59,14 @@ public class ReceiptManager {
                         String[] parts = line.split("\\|");
                         //temp printout
                         System.out.println("\nReceipt File: " + file.getName());
-                        System.out.printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n",
-                                ConsoleColors.BLUE, "\tOrder ID:",
+                        System.out.printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n",
+                                ConsoleColors.BLUE, "\tOrder ID: ",
                                 ConsoleColors.RESET, ConsoleColors.BOLD, parts[0],
-                                ConsoleColors.BLUE, "|Customer Name: ",
+                                ConsoleColors.BLUE, "|Name: ",
                                 ConsoleColors.RESET, ConsoleColors.BOLD, parts[1],
-                                ConsoleColors.BLUE, "|Plate|",
-                                ConsoleColors.RESET, ConsoleColors.BOLD, Double.parseDouble(parts[2]),
-                                ConsoleColors.RED_BOLD, "|" + parts[3] + "|" + parts[4] + "|" + parts[5] + "|" + parts[6],ConsoleColors.RESET);
+                                ConsoleColors.BLUE, "|Plate - ",
+                                ConsoleColors.RESET, ConsoleColors.BOLD,
+                                ConsoleColors.RED_BOLD, parts[3] + "|" + parts[4] + "|" + parts[5] + "|" + parts[6],ConsoleColors.RESET);
                     }
                     reader.close();
                 }catch (Exception e){

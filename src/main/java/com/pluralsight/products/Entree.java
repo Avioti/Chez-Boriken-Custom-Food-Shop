@@ -106,13 +106,6 @@ public class Entree implements Orderable {
 
     @Override
     public String toString() {
-        return String.join("| ",
-                "description='" + description + "'",
-                "id=" + id,
-                "main=" + main,
-                "side=" + side,
-                "drink=" + drink,
-                "basePrice=" + basePrice
-        );
+        return String.format("%d|%s|%s|%s|%.2f", id, main , side ,drink , getPrice());
     }
 }
